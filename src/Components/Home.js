@@ -3,13 +3,15 @@ import React from 'react'
 import Dashboard from './Dashboard'
 import LandingPage from './LandingPage'
 
+//import auth from '../services/authService'
 
-function App() {
-  //const authStatus = auth.isAuthenticated();
-  const authStatus = true
+
+function Home() {
 
   return (
-        authStatus ? (
+       // auth.isAuthenticated 
+       true
+        ? (
             <Dashboard />
         ) : (
           <LandingPage />   
@@ -17,4 +19,4 @@ function App() {
   );
 }
 
-export default App
+export default Home

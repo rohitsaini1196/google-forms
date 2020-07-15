@@ -4,9 +4,12 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
+  useHistory,
+  useLocation
 } from 'react-router-dom'
 
 import Home from './Components/Home'
+import auth from './services/authService'
 
 
 function Main() {
@@ -26,9 +29,20 @@ export default Main
 
 
 function Login(){
+    let history = useHistory();
+    let location = useLocation();
+
+    let { from } = location.state || { from: { pathname: "/" } };
+    let login = () => {
+        auth.authenticate(() => {
+          history.replace(from);
+        });
+      };
+
     return (
         <div>
             <p>Login form goes here</p>
+            <button onClick={login}>Login</button>
         </div>
     );
 }

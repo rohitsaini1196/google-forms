@@ -6,6 +6,8 @@ function LandingPage() {
     <div>
      
      <p>Landing Page</p>
+
+     <a href="/login">Login Here</a>
     </div>
   );
 }
