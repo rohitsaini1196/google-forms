@@ -1,9 +1,18 @@
 import React from 'react'
+import { Paper } from '@material-ui/core';
 
 function QuestionsHeader() {
   return (
        
-          <p> This is Questions Header </p>
+          <Paper elevation={2}>
+              <br></br>
+              <br></br>
+
+              <p>Add Title and Description</p>
+              <br></br>
+              <br></br>
+
+          </Paper>
        
   );
 }
