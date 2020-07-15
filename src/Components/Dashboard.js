@@ -213,7 +213,7 @@ function Dashboard() {
             edge="end"
             aria-label="account of current user"
             color="inherit"
-            onClick={()=>{alert(user.name)}}
+            onClick={()=>{alert(user)}}
           >
             <AccountCircle />
           </IconButton>
