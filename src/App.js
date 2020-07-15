@@ -1,11 +1,12 @@
 import React from 'react';
-
+import Main from './Main';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-     <h3>Welcome to google forms by Rohit Saini</h3>
+     
+     <Main />
     </div>
   );
 }
