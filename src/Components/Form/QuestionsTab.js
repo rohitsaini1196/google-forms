@@ -16,6 +16,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 function QuestionsTab() {
 
@@ -28,6 +32,25 @@ function QuestionsTab() {
       expandCloseAll(); //I AM GOD
 
       setQuestions(questions=> [...questions, {questionText: "Question", options : [{optionText: "Option 1"}], open: true}]);
+  }
+
+  function copyQuestion(i){
+    let qs = [...questions]; 
+    var newQuestion = qs[i];
+    expandCloseAll()
+    setQuestions(questions=> [...questions, newQuestion]);
+  }
+
+  function deleteQuestion(i){
+    let qs = [...questions]; 
+    //console.log(qs);
+    
+    if(questions.length > 1){
+      qs.splice(i, 1);
+    }
+
+    setQuestions(qs)
+    
   }
 
   function handleOptionValue(text,i, j){
@@ -43,7 +66,7 @@ function QuestionsTab() {
       setQuestions(optionsOfQuestion);
   }
 
-  
+
 
 
   function showAsQuestion(i){
@@ -59,7 +82,7 @@ function QuestionsTab() {
     } else{
       console.log("Max  5 options ");  
     }
-    console.log(optionsOfQuestion);
+    //console.log(optionsOfQuestion);
     setQuestions(optionsOfQuestion)
   }
 
@@ -132,10 +155,11 @@ function QuestionsTab() {
                 
                 {/* <Typography variant="subtitle1" style={{marginBottom: '15px'}}>Form description {i+1}</Typography> */}
                 <div style={{display:'flex', width: '100%', justifyContent: 'space-between'}}>
+                  <Typography style={{marginTop:'20px'}}>{i+1}.</Typography>
                   <TextField 
                         fullWidth={true} 
                         placeholder="Question Text" 
-                        style={{marginBottom: '15px'}}  
+                        style={{marginBottom: '18px'}}  
                         rows={2}
                         rowsMax={20}
                         multiline={true}
@@ -203,21 +227,21 @@ function QuestionsTab() {
 
               
                   
-                    <IconButton aria-label="delete" onClick={()=>{showAsQuestion(i)}}>
+                    <IconButton aria-label="View" onClick={()=>{showAsQuestion(i)}}>
                       <VisibilityIcon />
                     </IconButton>
 
-                    <IconButton aria-label="delete">
-                      <CropOriginalIcon />
+                    <IconButton aria-label="Copy" onClick={()=>{copyQuestion(i)}}>
+                      <FilterNoneIcon />
                     </IconButton>
                     <Divider orientation="vertical" flexItem/>
 
-                    <IconButton aria-label="delete">
-                      <CropOriginalIcon />
+                    <IconButton aria-label="delete" onClick={()=>{deleteQuestion(i)}}>
+                      <DeleteOutlineIcon />
                     </IconButton>
 
                     <IconButton aria-label="Image">
-                      <CropOriginalIcon />
+                      <MoreVertIcon />
                     </IconButton>
               </AccordionActions>
             </Accordion>
@@ -231,7 +255,7 @@ function QuestionsTab() {
 
 
   return (
-       <div style={{marginTop:'15px', marginBottom: '7px'}}>
+       <div style={{marginTop:'15px', marginBottom: '7px', paddingBottom:"30px"}}>
            <Grid
             container
             direction="column"
@@ -259,7 +283,16 @@ function QuestionsTab() {
                       {questionsUI()}
 
                       <div>
-                        <button onClick={addMoreQuestionField}>Add question</button>
+                        {/* <button onClick={addMoreQuestionField}>Add question</button> */}
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          
+                          onClick={addMoreQuestionField}
+                          endIcon={<AddCircleIcon />}
+                        >
+                          Add Question
+                        </Button>
                       </div>
                     </div>
                   </Grid>  
