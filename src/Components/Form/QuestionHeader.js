@@ -11,16 +11,42 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import CropOriginalIcon from '@material-ui/icons/CropOriginal';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 function QuestionsHeader() {
 
-  const [questions, setQuestions]= React.useState([{questionText: "Question", open: false}]);
+  const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "option 1"}], open: false}]);
+  
 
   function addMoreQuestionField(){
       expandCloseAll(); //I AM GOD
-      setQuestions(questions=> [...questions, {questionText: "Question", open: true}]);
+      setQuestions(questions=> [...questions, {questionText: "Question", options : [{optionText: "option 1"}], open: true}]);
+  }
+
+  function addOption(i){
+    var optionsOfQuestion = [...questions];
+    if(optionsOfQuestion[i].options.length < 5){
+      optionsOfQuestion[i].options.push({optionText: "option gg"})
+    } else{
+      console.log("Max  5 options ");  
+    }
+    setQuestions(optionsOfQuestion)
+  }
+
+  function removeOption(i, j){
+    var optionsOfQuestion = [...questions];
+    if(optionsOfQuestion[i].options.length > 1){
+      optionsOfQuestion[i].options.splice(j, 1);
+      setQuestions(optionsOfQuestion)
+      console.log(i + "__" + j);
+    }   
   }
 
   function expandCloseAll(){
@@ -47,10 +73,9 @@ function QuestionsHeader() {
     return  questions.map((ques, i)=> (
       <div key={i}>
           <div style={{marginBottom: "9px"}}>
-          {/* onChange={(e)=>{handleInputAddMember(e.target.value, i)}} */}
-            <ExpansionPanel onChange={()=>{handleExpand(i)}} expanded={questions[i].open}>
-              <ExpansionPanelSummary
-              
+          
+            <Accordion onChange={()=>{handleExpand(i)}} expanded={questions[i].open}>
+              <AccordionSummary            
                 aria-controls="panel1a-content"
                 id="panel1a-header"
                 elevation={1} style={{width:'100%'}}
@@ -63,18 +88,43 @@ function QuestionsHeader() {
                   <FormControlLabel disabled control={<Radio />} label="Option 1" />                                        
               </div>            
               ): ""}   
-              </ExpansionPanelSummary>
+              </AccordionSummary>
 
 
-              <ExpansionPanelDetails>
+              <AccordionDetails>
 
               <div style={{display: 'flex',flexDirection:'column', alignItems:'flex-start', marginLeft: '15px', marginTop:'-15px'}}>
                 
                 <Typography variant="subtitle1">Form description {i+1}</Typography>
                 
-                <FormControlLabel disabled control={<Radio />} label={<TextField defaultValue="Default Value" />} />     
+                <div style={{width: '100%'}}>
+                {ques.options.map((op, j)=>(
+                 <div key={j} style={{display:'flex', flexDirection:'row', marginLeft:'-13px'}}>
+
+                    <Radio disabled /> 
+                    <TextField fullWidth={true} placeholder="Option text" style={{marginTop: '5px'}} />  
+                    
+                    <IconButton aria-label="delete">
+                      <CropOriginalIcon />
+                    </IconButton>
+
+                    <IconButton aria-label="delete" onClick={()=>{removeOption(i, j)}}>
+                      <CloseIcon />
+                    </IconButton>
+
+                 </div>
+                  
+                ))}  
+                </div>  
                 
-                <FormControlLabel disabled control={<Radio />} label="Option 2" />     
+                
+                <FormControlLabel disabled control={<Radio />} label={
+                  <Button size="small" onClick={()=>{addOption(i)}} style={{textTransform: 'none', marginLeft:"-5px"}}>
+                    Add Option
+                  </Button>
+                } /> 
+
+               
 
                   <Typography>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
@@ -82,8 +132,8 @@ function QuestionsHeader() {
                   </Typography>
               </div>
               
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
           </div>
     </div>
      )

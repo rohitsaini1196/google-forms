@@ -131,22 +131,6 @@ function EditForm(props) {
                 </AppBar>
             </div>
 
-            {/* <Paper className={classes.root}>
-                    <p>Welcome here</p>
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                >
-                    <Tab label="Questions" />
-                    <Tab label="Responses" />
-                </Tabs>
-            </Paper> */}
-
-
-
         <div>
             <TabPanel value={value} index={0}>
                 <QuestionsTab />
