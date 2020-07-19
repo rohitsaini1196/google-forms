@@ -1,6 +1,9 @@
 import React from 'react'
-import QuestionHeader from './QuestionHeader';
+//import QuestionHeader from './QuestionHeader';
 import {Grid} from '@material-ui/core';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+
 import { Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Accordion from '@material-ui/core/Accordion';
@@ -67,6 +70,27 @@ function QuestionsTab() {
   }
 
 
+ function onDragEnd(result) {
+  if (!result.destination) {
+    return;
+  }
+  var itemgg = [...questions];
+
+  const itemF = reorder(
+    itemgg,
+    result.source.index,
+    result.destination.index
+  );
+
+  setQuestions(itemF);
+  }
+
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
 
 
   function showAsQuestion(i){
@@ -117,7 +141,14 @@ function QuestionsTab() {
 
   function questionsUI(){
     return  questions.map((ques, i)=> (
-      <div key={i}>
+      <Draggable key={i} draggableId={i + 'id'} index={i}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <div>
           <div style={{marginBottom: "9px"}}>
           
             <Accordion onChange={()=>{handleExpand(i)}} expanded={questions[i].open}>
@@ -223,10 +254,7 @@ function QuestionsTab() {
               
 
 
-              <AccordionActions>
-
-              
-                  
+              <AccordionActions>               
                     <IconButton aria-label="View" onClick={()=>{showAsQuestion(i)}}>
                       <VisibilityIcon />
                     </IconButton>
@@ -246,7 +274,11 @@ function QuestionsTab() {
               </AccordionActions>
             </Accordion>
           </div>
-    </div>
+      </div>
+                    </div>
+                  )}
+      </Draggable>
+      
      )
     )
   }
@@ -280,7 +312,23 @@ function QuestionsTab() {
 
                   <Grid style={{paddingTop: '10px'}}>
                     <div>
-                      {questionsUI()}
+                    <DragDropContext onDragEnd={onDragEnd}>
+                      <Droppable droppableId="droppable">
+                        {(provided, snapshot) => (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {questionsUI()}
+
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+
+
+                    </DragDropContext>
+                      
 
                       <div>
                         {/* <button onClick={addMoreQuestionField}>Add question</button> */}

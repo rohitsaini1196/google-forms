@@ -26,6 +26,7 @@ function Main() {
             <Switch>
                 <Route exact path="/" component={Home}/> 
                 <Route exact path="/login" component={Login}/>
+                
                 <Route path="/form/:formId" component={EditForm}/>
             </Switch>
         </Router>
