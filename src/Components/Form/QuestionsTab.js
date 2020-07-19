@@ -30,7 +30,7 @@ function QuestionsTab() {
   const [formTitle, setFormTitle] = React.useState("");
   const [formDescription, setFormDescription] = React.useState("");
   const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
-  
+
 
   function addMoreQuestionField(){
       expandCloseAll(); //I AM GOD
