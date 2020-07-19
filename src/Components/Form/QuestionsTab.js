@@ -23,6 +23,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
 function QuestionsTab() {
 
@@ -149,7 +150,10 @@ function QuestionsTab() {
                       {...provided.dragHandleProps}
                     >
                       <div>
-          <div style={{marginBottom: "9px"}}>
+          <div style={{marginBottom: "15px"}}>
+            <div style={{width:'100%', marginBottom: '-7px' }}>
+              <DragIndicatorIcon style={{transform: "rotate(-90deg)", color:'#DAE0E2'}} fontSize="small"/>
+            </div>
           
             <Accordion onChange={()=>{handleExpand(i)}} expanded={questions[i].open}>
               <AccordionSummary            
