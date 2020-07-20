@@ -203,8 +203,11 @@ function QuestionsTab() {
 
 
                 {ques.questionImage !==""?(
-                  <img src={ques.questionImage} width="400px" height="auto" />
+                  <div>
+                    <img src={ques.questionImage} width="400px" height="auto" /><br></br><br></br>
+                  </div>
                 ): "" }
+                
 
                 
 
@@ -212,15 +215,19 @@ function QuestionsTab() {
                 {ques.options.map((op, j)=>(
                  
                  <div key={j}>
-                    <FormControlLabel disabled control={<Radio style={{marginRight: '3px'}} />} label={
-                      <Typography style={{color: '#555555'}}>
-                        {ques.options[j].optionText}
-                      </Typography>
-                    } />
+                   <div style={{display: 'flex'}}>
+                    <FormControlLabel disabled control={<Radio style={{marginRight: '3px', }} />} label={
+                        <Typography style={{color: '#555555'}}>
+                          {ques.options[j].optionText}
+                        </Typography>
+                      } />
+                   </div>
 
-                  {op.optionImage !==""?(
-                    <img src={op.optionImage} width="300px" height="auto" />
-                  ): "" }
+                  <div>
+                    {op.optionImage !==""?(
+                      <img src={op.optionImage} width="160px" height="auto" />
+                    ): "" }
+                  </div>
                  </div>
 
                 ))}  
