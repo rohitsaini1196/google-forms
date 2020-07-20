@@ -2,6 +2,8 @@ import React from 'react'
 //import QuestionHeader from './QuestionHeader';
 import {Grid} from '@material-ui/core';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
 
 import { Paper, Typography } from '@material-ui/core';
@@ -64,6 +66,10 @@ function QuestionsTab() {
     handleImagePopupOpen();
     
   }
+
+  const handleDelete = () => {
+    console.info('You clicked the delete icon.');
+  };
 
 
   function updateImageLink(link, context){
@@ -258,6 +264,17 @@ function QuestionsTab() {
                   <IconButton aria-label="upload image" onClick={()=>{uploadImage(i, null)}}>
                         <CropOriginalIcon />
                   </IconButton>
+                </div>
+
+                <div>
+                      <div>
+                         <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
+                          <img src="http://localhost:5000/google-form-content-questions-1595249677665.jpg" width="150px" height="auto"/>
+                          <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} size="small">
+                            <CloseIcon />
+                          </IconButton>
+                         </div>
+                      </div>
                 </div>
                 
                 <div style={{width: '100%'}}>
