@@ -24,13 +24,18 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
+import ImageUplaodModel from './ImageUplaodModel';
 
 function QuestionsTab() {
 
   const [formTitle, setFormTitle] = React.useState("");
   const [formDescription, setFormDescription] = React.useState("");
   const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
-
+  const [openUploadImagePop, setOpenUploadImagePop] = React.useState(false);
+  const [imageContextData, setImageContextData] = React.useState({
+    question: null,
+    option: null
+  })
 
   function addMoreQuestionField(){
       expandCloseAll(); //I AM GOD
@@ -45,16 +50,45 @@ function QuestionsTab() {
     setQuestions(questions=> [...questions, newQuestion]);
   }
 
+  const handleImagePopupOpen = () => {
+    setOpenUploadImagePop(true);
+  };
+
+
+  function uploadImage(i, j){
+    
+    setImageContextData({
+      question: i,
+      option: j
+    });
+    handleImagePopupOpen();
+    
+  }
+
+
+  function updateImageLink(link, context){
+    
+    var optionsOfQuestion = [...questions];
+    var i = context.question
+    console.log(i);
+
+    if (context.option == null) {
+      optionsOfQuestion[i].questionImage= link;
+    } else {
+      var j = context.option
+      optionsOfQuestion[i].options[j].optionImage = link;
+    }
+    console.log(optionsOfQuestion);
+    setQuestions(optionsOfQuestion);
+
+  }
+
   function deleteQuestion(i){
     let qs = [...questions]; 
-    //console.log(qs);
-    
     if(questions.length > 1){
       qs.splice(i, 1);
     }
-
     setQuestions(qs)
-    
   }
 
   function handleOptionValue(text,i, j){
@@ -166,7 +200,15 @@ function QuestionsTab() {
                 {/* <TextField id="standard-basic" label=" " value="Question" InputProps={{ disableUnderline: true }} />  */}
                 
                 <Typography variant="subtitle1" style={{marginLeft: '0px'}}>{i+1}.  {ques.questionText}</Typography>
-                             
+
+
+                {ques.questionImage !==""?(
+                  <img src={ques.questionImage} width="400px" height="auto" />
+                ): "" }
+
+                
+
+
                 {ques.options.map((op, j)=>(
                  
                  <div key={j}>
@@ -175,6 +217,10 @@ function QuestionsTab() {
                         {ques.options[j].optionText}
                       </Typography>
                     } />
+
+                  {op.optionImage !==""?(
+                    <img src={op.optionImage} width="300px" height="auto" />
+                  ): "" }
                  </div>
 
                 ))}  
@@ -185,7 +231,6 @@ function QuestionsTab() {
 
 
               <AccordionDetails>
-
               <div style={{display: 'flex',flexDirection:'column', alignItems:'flex-start', marginLeft: '15px', marginTop:'-15px'}}>
                 
                 {/* <Typography variant="subtitle1" style={{marginBottom: '15px'}}>Form description {i+1}</Typography> */}
@@ -203,7 +248,7 @@ function QuestionsTab() {
                         variant="filled"
                       onChange={(e)=>{handleQuestionValue(e.target.value, i)}}
                   />
-                  <IconButton aria-label="upload image">
+                  <IconButton aria-label="upload image" onClick={()=>{uploadImage(i, null)}}>
                         <CropOriginalIcon />
                   </IconButton>
                 </div>
@@ -223,7 +268,7 @@ function QuestionsTab() {
                     />
                     
                     
-                    <IconButton aria-label="upload image">
+                    <IconButton aria-label="upload image" onClick={()=>{uploadImage(i, j)}}>
                       <CropOriginalIcon />
                     </IconButton>
 
@@ -316,6 +361,8 @@ function QuestionsTab() {
 
                   <Grid style={{paddingTop: '10px'}}>
                     <div>
+                    <ImageUplaodModel handleImagePopOpen={openUploadImagePop} handleImagePopClose={()=>{setOpenUploadImagePop(false)}} updateImageLink={updateImageLink} contextData={imageContextData}/>
+
                     <DragDropContext onDragEnd={onDragEnd}>
                       <Droppable droppableId="droppable">
                         {(provided, snapshot) => (
