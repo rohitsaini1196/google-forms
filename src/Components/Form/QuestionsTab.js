@@ -181,6 +181,7 @@ function QuestionsTab() {
   }
 
   function questionsUI(){
+    
     return  questions.map((ques, i)=> (
       <Draggable key={i} draggableId={i + 'id'} index={i}>
                   {(provided, snapshot) => (
@@ -267,38 +268,63 @@ function QuestionsTab() {
                 </div>
 
                 <div>
-                      <div>
-                         <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
-                          <img src="http://localhost:5000/google-form-content-questions-1595249677665.jpg" width="150px" height="auto"/>
-                          <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} size="small">
-                            <CloseIcon />
-                          </IconButton>
-                         </div>
-                      </div>
+                     {
+                       ques.QuestionImage !=="" ? (
+                        <div>
+                            <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
+                            <img src={ques.QuestionImage} width="150px" height="auto"/>
+                            <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} size="small">
+                              <CloseIcon />
+                            </IconButton>
+                            </div>
+                        </div>
+                       ): ""
+                     }
                 </div>
                 
                 <div style={{width: '100%'}}>
                 {ques.options.map((op, j)=>(
                  
-                 <div key={j} style={{display:'flex', flexDirection:'row', marginLeft:'-12.5px', justifyContent: 'space-between', paddingTop: '5px', paddingBottom: '5px'}}>
+                 <div>
+                      <div key={j} style={{display:'flex', flexDirection:'row', marginLeft:'-12.5px', justifyContent: 'space-between', paddingTop: '5px', paddingBottom: '5px'}}>
 
-                    <Radio disabled /> 
-                    <TextField 
-                      fullWidth={true} 
-                      placeholder="Option text" 
-                      style={{marginTop: '5px'}} 
-                      value={ques.options[j].optionText}
-                      onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
-                    />
-                    
-                    
-                    <IconButton aria-label="upload image" onClick={()=>{uploadImage(i, j)}}>
-                      <CropOriginalIcon />
-                    </IconButton>
+                          <Radio disabled /> 
+                          <TextField 
+                            fullWidth={true} 
+                            placeholder="Option text" 
+                            style={{marginTop: '5px'}} 
+                            value={ques.options[j].optionText}
+                            onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
+                          />
 
-                    <IconButton aria-label="delete" onClick={()=>{removeOption(i, j)}}>
-                      <CloseIcon />
-                    </IconButton>
+
+                          <IconButton aria-label="upload image" onClick={()=>{uploadImage(i, j)}}>
+                            <CropOriginalIcon />
+                          </IconButton>
+
+                          <IconButton aria-label="delete" onClick={()=>{removeOption(i, j)}}>
+                            <CloseIcon />
+                          </IconButton>
+
+                          </div>
+
+                          <div>
+                          {
+                            op.optionImage !=="" ? (
+                            <div>
+                            <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
+                              <img src={op.optionImage} width="90px" height="auto"/>
+                              <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} size="small">
+                                <CloseIcon />
+                              </IconButton>
+                            </div>
+                          </div>
+                            ): ""
+                          }
+                          </div>
+                          <br></br>
+                          <br></br>
+
 
                  </div>
                   
@@ -400,27 +426,18 @@ function QuestionsTab() {
                           </div>
                         )}
                       </Droppable>
-
-
                     </DragDropContext>
-                      
-
-                      <div>
-                        {/* <button onClick={addMoreQuestionField}>Add question</button> */}
+                    <div>                       
                         <Button
                           variant="contained"
                           color="primary"
-                          
                           onClick={addMoreQuestionField}
                           endIcon={<AddCircleIcon />}
-                        >
-                          Add Question
-                        </Button>
+                        >Add Question </Button>
                       </div>
                     </div>
-                  </Grid>  
-                      
-            </Grid>           
+                  </Grid>        
+              </Grid>           
            </Grid>
        </div>
   );
