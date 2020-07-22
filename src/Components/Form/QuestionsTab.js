@@ -34,10 +34,26 @@ function QuestionsTab() {
   const [formDescription, setFormDescription] = React.useState("");
   const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
   const [openUploadImagePop, setOpenUploadImagePop] = React.useState(false);
-  const [imageContextData, setImageContextData] = React.useState({
-    question: null,
-    option: null
-  })
+  const [imageContextData, setImageContextData] = React.useState({question: null, option: null});
+
+
+  function checkImageHereOrNotForQuestion(gg){
+   // console.log(gg);
+    if ((gg == undefined)||(gg=="")){
+      return false;
+    } else{
+      return true;
+    }
+  }
+
+  function checkImageHereOrNotForOption(gg){
+   // console.log(gg);
+    if ((gg == undefined)||(gg=="")){
+      return false;
+    } else{
+      return true;
+    }
+  }
 
   function addMoreQuestionField(){
       expandCloseAll(); //I AM GOD
@@ -269,11 +285,15 @@ function QuestionsTab() {
 
                 <div>
                      {
-                       ques.QuestionImage !=="" ? (
+                       checkImageHereOrNotForQuestion(ques.questionImage) ? (
                         <div>
                             <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
-                            <img src={ques.QuestionImage} width="150px" height="auto"/>
-                            <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} size="small">
+                            <img src={ques.questionImage} width="150px" height="auto"/>
+                            <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} 
+                                        size="small"
+                                        onClick={()=>{
+                                          updateImageLink("", {question: i, option: null})
+                                        }}>
                               <CloseIcon />
                             </IconButton>
                             </div>
@@ -285,8 +305,8 @@ function QuestionsTab() {
                 <div style={{width: '100%'}}>
                 {ques.options.map((op, j)=>(
                  
-                 <div>
-                      <div key={j} style={{display:'flex', flexDirection:'row', marginLeft:'-12.5px', justifyContent: 'space-between', paddingTop: '5px', paddingBottom: '5px'}}>
+                 <div key={j}>
+                      <div  style={{display:'flex', flexDirection:'row', marginLeft:'-12.5px', justifyContent: 'space-between', paddingTop: '5px', paddingBottom: '5px'}}>
 
                           <Radio disabled /> 
                           <TextField 
@@ -297,7 +317,6 @@ function QuestionsTab() {
                             onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
                           />
 
-
                           <IconButton aria-label="upload image" onClick={()=>{uploadImage(i, j)}}>
                             <CropOriginalIcon />
                           </IconButton>
@@ -305,25 +324,31 @@ function QuestionsTab() {
                           <IconButton aria-label="delete" onClick={()=>{removeOption(i, j)}}>
                             <CloseIcon />
                           </IconButton>
-
                           </div>
 
                           <div>
                           {
-                            op.optionImage !=="" ? (
+                            checkImageHereOrNotForOption(op.optionImage) ? (
                             <div>
-                            <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
-                              <img src={op.optionImage} width="90px" height="auto"/>
-                              <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}} size="small">
-                                <CloseIcon />
-                              </IconButton>
+                              <div style={{width:'150px', display: 'flex', alignItems:'flex-start', paddingLeft:'20px'}}>
+                                <img src={op.optionImage} width="90px" height="auto"/>
+                                
+                                <IconButton style={{marginLeft: '-15px', marginTop: '-15px',zIndex:999, backgroundColor: 'lightgrey', color:'grey'}}
+                                            size="small"
+                                            onClick={()=>{
+                                              updateImageLink("", {question: i, option: j})
+                                            }}
+                                            >
+                                  <CloseIcon />
+                                </IconButton>
+                              </div>
+                              <br></br>
+                              <br></br>  
                             </div>
-                          </div>
                             ): ""
                           }
                           </div>
-                          <br></br>
-                          <br></br>
+                          
 
 
                  </div>
@@ -347,12 +372,10 @@ function QuestionsTab() {
 
                 <Typography variant="body2" style={{color: 'grey'}}>You can add maximum 5 options. If you want to add more then change in settings. Multiple choice single option is availible</Typography>
               </div>
-              
               </AccordionDetails>
+
               <Divider />
               
-
-
               <AccordionActions>               
                     <IconButton aria-label="View" onClick={()=>{showAsQuestion(i)}}>
                       <VisibilityIcon />
