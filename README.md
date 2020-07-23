@@ -19,7 +19,6 @@
   <a href="#about">About</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
-  <a href="#contributing">Contributing</a> •
   <a href="#author">Author</a> •
   <a href="#support">Support</a> •
   <a href="#license">License</a>
@@ -33,11 +32,8 @@
 <tr>
 <td>
   
-**ArminC AutoExec** is a **high-quality** _config_ for _Counter-Strike: Global Offensive_ that aims to **improve the gameplay** and its **template is perfect**, enabling you to **customize** the game **settings** to your liking.
+Hey, It is a clone of _Google Forms_ , it's completely open source and have some extra features. Used React JS with Material UI for front-end and Used NodeJS and MongoDB as backend. Some of the designs and logics are inspired by google forms. You can direct use Form snippet as plugin in your project.  
 
-It comes **filled** with **optimizations** that make use of the **all network capacity** and **game advantages**, overall **improving the gameplay** for a wide variety of _computers and players_.
-
-**Each and one** of the **commands** are **finely-tuned**, _enabling all game's capacity_ (compared to default settings), **helping you** through the matchmaking.
 
 ![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/userview.png)
 <p align="right">
@@ -71,17 +67,9 @@ It comes **filled** with **optimizations** that make use of the **all network ca
 etc.
 
 
-
-
-
-
-## Contributing
-
-Got **something interesting** you'd like to **share**? Learn about [contributing](https://stillthristy.in/).
-
 ## Author
 
-| [![ArminC](http://www.gamerconfig.eu/files/avatars/thumbnail_arminc.png)](https://www.linkedin.com/in/rohitsaini1196/) 	|
+| [![Rohit Saini](http://www.gamerconfig.eu/files/avatars/thumbnail_arminc.png)](https://www.linkedin.com/in/rohitsaini1196/) 	|
 |:---------------------------------------------------------------------------------------------------------:	|
 |                                            **Rohit Saini**                                            	|
 
@@ -96,6 +84,6 @@ Reach out to me at one of the following places:
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/rohitsaini1196/google-forms/blob/master/licence.md)
 
 - Copyright © [Rohit Saini](https://stillthristy.in/ "Rohit Saini").
