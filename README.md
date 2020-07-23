@@ -100,7 +100,7 @@ etc.
 
 ## Author
 
-| [![Rohit Saini](http://www.gamerconfig.eu/files/avatars/thumbnail_arminc.png)](https://www.linkedin.com/in/rohitsaini1196/) 	|
+| [![Rohit Saini](https://res.cloudinary.com/stillhungry/image/upload/c_scale,w_150/v1588051252/cycles/2020-04-28T05:20:52.231Z.jpg)](https://www.linkedin.com/in/rohitsaini1196/) 	|
 |:---------------------------------------------------------------------------------------------------------:	|
 |                                            **Rohit Saini**                                            	|
 
