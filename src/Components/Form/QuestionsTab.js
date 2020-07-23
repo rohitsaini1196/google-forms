@@ -35,7 +35,8 @@ function QuestionsTab() {
   const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
   const [openUploadImagePop, setOpenUploadImagePop] = React.useState(false);
   const [imageContextData, setImageContextData] = React.useState({question: null, option: null});
-
+  //console.log(questions);
+  
 
   function checkImageHereOrNotForQuestion(gg){
    // console.log(gg);
@@ -63,9 +64,24 @@ function QuestionsTab() {
 
   function copyQuestion(i){
     let qs = [...questions]; 
-    var newQuestion = qs[i];
-    expandCloseAll()
-    setQuestions(questions=> [...questions, newQuestion]);
+    expandCloseAll();
+    const myNewOptions = [];
+    qs[i].options.forEach(opn => {
+      if ((opn.optionImage !== undefined)||(opn.optionImage !=="")) {
+        var opn1new = {
+          optionText : opn.optionText,
+          optionImage: opn.optionImage
+        }
+      } else{
+        var opn1new = {
+          optionText : opn.optionText
+        }
+      }
+      myNewOptions.push(opn1new)
+    });
+    const qImage = qs[i].questionImage || "";
+    var newQuestion = {questionText: qs[i].questionText, questionImage : qImage ,options:myNewOptions, open: true}
+     setQuestions(questions=> [...questions, newQuestion]); 
   }
 
   const handleImagePopupOpen = () => {
@@ -92,7 +108,7 @@ function QuestionsTab() {
     
     var optionsOfQuestion = [...questions];
     var i = context.question
-    console.log(i);
+   // console.log(i);
 
     if (context.option == null) {
       optionsOfQuestion[i].questionImage= link;
@@ -100,9 +116,8 @@ function QuestionsTab() {
       var j = context.option
       optionsOfQuestion[i].options[j].optionImage = link;
     }
-    console.log(optionsOfQuestion);
+    //console.log(optionsOfQuestion);
     setQuestions(optionsOfQuestion);
-
   }
 
   function deleteQuestion(i){
@@ -152,6 +167,8 @@ function QuestionsTab() {
 
   function showAsQuestion(i){
     let qs = [...questions];  
+    //console.log(qs[i]);
+    
      qs[i].open = false;
      setQuestions(qs);
   }
@@ -185,19 +202,25 @@ function QuestionsTab() {
   }
 
   function handleExpand(i){
+    //console.log("handle expand for i = " + i);
+    
     let qs = [...questions]; 
     for (let j = 0; j < qs.length; j++) {
       if(i ==j ){
-        qs[j].open = true;
+        qs[i].open = true;
+       // console.log("value in first if block is: " + j);
+        
       } else{
+       // console.log("value in second or else block is: " + j);
+
         qs[j].open = false;
        }
     }
+   
      setQuestions(qs);
   }
 
   function questionsUI(){
-    
     return  questions.map((ques, i)=> (
       <Draggable key={i} draggableId={i + 'id'} index={i}>
                   {(provided, snapshot) => (
@@ -231,10 +254,6 @@ function QuestionsTab() {
                   </div>
                 ): "" }
                 
-
-                
-
-
                 {ques.options.map((op, j)=>(
                  
                  <div key={j}>
@@ -252,18 +271,13 @@ function QuestionsTab() {
                     ): "" }
                   </div>
                  </div>
-
                 ))}  
-
               </div>            
               ): ""}   
               </AccordionSummary>
 
-
               <AccordionDetails>
               <div style={{display: 'flex',flexDirection:'column', alignItems:'flex-start', marginLeft: '15px', marginTop:'-15px'}}>
-                
-                {/* <Typography variant="subtitle1" style={{marginBottom: '15px'}}>Form description {i+1}</Typography> */}
                 <div style={{display:'flex', width: '100%', justifyContent: 'space-between'}}>
                   <Typography style={{marginTop:'20px'}}>{i+1}.</Typography>
                   <TextField 
@@ -348,11 +362,7 @@ function QuestionsTab() {
                             ): ""
                           }
                           </div>
-                          
-
-
                  </div>
-                  
                 ))}  
                 </div>  
                 
