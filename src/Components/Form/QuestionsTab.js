@@ -5,7 +5,6 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 
-
 import { Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Accordion from '@material-ui/core/Accordion';
