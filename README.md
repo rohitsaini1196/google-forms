@@ -19,6 +19,7 @@
   <a href="#about">About</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
+  <a href="#screenshots">Screenshots</a> •
   <a href="#author">Author</a> •
   <a href="#support">Support</a> •
   <a href="#license">License</a>
@@ -34,12 +35,6 @@
   
 Hey, It is a clone of _Google Forms_ , it's completely open source and have some extra features. Used React JS with Material UI for front-end and Used NodeJS and MongoDB as backend. Some of the designs and logics are inspired by google forms. You can direct use Form snippet as plugin in your project.  
 
-
-![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/userview.png)
-<p align="right">
-<sub>(Preview)</sub>
-</p>
-
 </td>
 </tr>
 </table>
@@ -48,7 +43,19 @@ Hey, It is a clone of _Google Forms_ , it's completely open source and have some
 
 ##### Downloading and installing steps:
 * **[Download or Clone](https://github.com/rohitsaini1196/google-forms.git)** the latest version of the Code.
-* **Go** to the Code directory and run 'npm run dev'
+
+```console
+$ cd google-forms
+$ npm install && cd server && npm install 
+$ cd ..
+$ npm run dev
+```
+
+ **Boom** it will automatically start the local server for backend and frontend. 
+ > *Default Frontend port is 3000 and backend port is 5000*
+
+
+
 
 
 ## Features
@@ -65,6 +72,23 @@ Hey, It is a clone of _Google Forms_ , it's completely open source and have some
 | Drag and Drop questions to sort them accordingly|
 
 etc.
+
+## Screenshots
+
+![Basic question perview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/basic-user-question.png)
+
+![Creater Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createView-withImage.png)
+
+![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createview.png)
+
+![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/userview.png)
+
+
+[See more](https://github.com/rohitsaini1196/google-forms/tree/master/screenshots).
+
+
+
+
 
 
 ## Author
