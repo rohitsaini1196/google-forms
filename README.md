@@ -75,13 +75,20 @@ etc.
 
 ## Screenshots
 
+![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/userview.png)
+
+![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createview.png)
+
 ![Basic question perview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/basic-user-question.png)
 
 ![Creater Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createView-withImage.png)
 
-![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createview.png)
+![Creater Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/image-user-view.png)
 
-![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/userview.png)
+
+
+
+
 
 
 [See more](https://github.com/rohitsaini1196/google-forms/tree/master/screenshots).
