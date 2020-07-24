@@ -3,16 +3,15 @@
 <h4 align="center">A Clone of google forms in React and Nodejs.</h4>
 
 <p align="center">
-    <a href="https://github.com/ArmynC/ArminC-AutoExec/commits/master">
+    <a href="https://github.com/rohitsaini1196/google-forms/commits/master">
     <img src="https://img.shields.io/badge/Last%20Commit-July-green?style=flat-square&logo=github&logoColor=white"
          alt="GitHub last commit">
-    <a href="https://github.com/ArmynC/ArminC-AutoExec/issues">
+    <a href="https://github.com/rohitsaini1196/google-forms/issues">
     <img src="https://img.shields.io/badge/Open%20Issues-0-red?style=flat-square&logo=github&logoColor=white"
          alt="GitHub issues">
-    <a href="https://github.com/ArmynC/ArminC-AutoExec/pulls">
+    <a href="https://github.com/rohitsaini1196/google-forms/pulls">
     <img src="https://img.shields.io/badge/Open%20pull%20requests-0-blue?style=flat-square&logo=github&logoColor=whit"
          alt="GitHub pull requests">
-    
 </p>
       
 <p align="center">
