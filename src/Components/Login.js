@@ -1,31 +1,31 @@
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import React from 'react'
 import authService from '../services/authService';
+import { useHistory } from "react-router-dom";
+
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 
-function Login(){
+function Login(props){
+    // console.log(props.from);
+    // console.log(props);
+    
+    let history = useHistory();
 
     const [isLogined , setIsLogined] = React.useState(false);
-    const [accessTicket, setAccessTicket] = React.useState("");
-    const [userGData, setUserGData] = React.useState({
-        name: "",
-        image: "",
-        email: ""
-    })
+    const { from } = props.location.state || { from: { pathname: '/' } }
+    console.log(from);
+    
 
     React.useEffect(()=>{
-
+        setIsLogined(authService.isAuthenticated())
     }, [])
 
     const loginGoogle = (response)=>{
         console.log(response);
         authService.loginWithGoogle(response)
         .then(() => {
-            // this.props.history.push('/');  
-            // window.location.reload(false);  
-            console.log('dot');
-                  
+            history.push(from.pathname);
           },
           error => {
             const resMessage =
@@ -37,34 +37,33 @@ function Login(){
             console.log(resMessage);
           }      
           );
+    }
 
-        setIsLogined(false);
-        setAccessTicket(response.accessToken);
+    const loginAsGuest = ()=>{
+        authService.loginAsGuest()
+        history.push(from.pathname);
+        
     }
 
     const handleLoginFailure = (response)=>{
-        alert('Failed to log in')
+        console.log('Failed to log in');
     }
     
     const handleLogoutFailure = (response)=>{
-        alert('Failed to log out')
+        console.log('Failed to log out');
     }
 
     const logout = (response)=>{
+        //console.log(response);
+        authService.logout();
         setIsLogined(false);
-        setAccessTicket("");
       }
 
     return (
         <div>
-            <p>{accessTicket}</p>
+           
             {isLogined ?
-                <GoogleLogout
-                    clientId={CLIENT_ID}
-                    buttonText='Logout'
-                    onLogoutSuccess={ this.logout }
-                    onFailure={handleLogoutFailure}
-                ></GoogleLogout>: 
+                "": 
 
                 <GoogleLogin
                     clientId={CLIENT_ID}
@@ -75,6 +74,23 @@ function Login(){
                     responseType='code,token'
                 />
             }
+
+            <br></br>
+            <br></br>
+
+            <div>
+               {
+                   isLogined ? (
+                       <div>
+                           <p>Already logged in. Want to logout?</p>
+                           <button onClick={logout}>Logout </button>
+                       </div>
+                    
+                   ) : (
+                        <button onClick={loginAsGuest}>Login as Guest</button>
+                   )
+               }
+            </div>
         </div>
     )
 }

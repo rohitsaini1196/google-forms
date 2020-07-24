@@ -96,19 +96,32 @@ function Dashboard() {
     let history = useHistory();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+    const [user, setUser] = React.useState({})
+
+    React.useEffect(()=>{
+      setUser(auth.getCurrentUser())
+    }, []);
   
+
+
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
 
     const addForm = ()=>{
       var x = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       console.log(x);
-
       history.push("/form/"+x);
-      
+    }
+
+    const logout =()=>{
+      var logoutConfirmation = window.confirm("Really want to logout?");
+
+      if(logoutConfirmation){
+        auth.logout();
+        history.push("/login");
+      }
     }
   
     
@@ -153,7 +166,7 @@ function Dashboard() {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <MenuItem>
+        <MenuItem onClick={addForm}>
           <IconButton aria-label="show 11 new notifications" color="inherit">
            
               <AddIcon />
@@ -174,12 +187,6 @@ function Dashboard() {
       </Menu>
     );
   
-
-    const [user, setUser] = React.useState({})
-
-    React.useEffect(()=>{
-        setUser(auth.getGuestUser());
-    }, [])
 
   return (
     <div className={classes.grow}>
@@ -224,7 +231,7 @@ function Dashboard() {
             edge="end"
             aria-label="account of current user"
             color="inherit"
-            onClick={()=>{alert(user.name)}}
+            onClick={logout}
           >
             <AccountCircle />
           </IconButton>

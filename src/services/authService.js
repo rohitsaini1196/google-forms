@@ -1,7 +1,9 @@
 
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-const API_URL = "http://localhost:5000/api/user/";
+import jwt from 'jsonwebtoken';
+//const API_URL = "http://localhost:5000/api/user/";
+const API_URL = "http://192.168.225.23:5000/api/user/"
 
 
 
@@ -47,6 +49,19 @@ export default   {
           }
           return response.data;
         });
+    },
+
+    loginAsGuest(){
+      var userData = {
+        name: "Cool Guest", 
+        id: "y2jsdqakq9rqyvtd4gf6g", 
+        email: "coolboy69@gg.com"
+      }
+
+      const accessToken = jwt.sign(userData, "thisisaguesttokenwithsomeshittystring8", {expiresIn: '24h'});
+      localStorage.setItem("userTicket", JSON.stringify(accessToken));   
+      return accessToken;   
+
     },
 
     logout() {

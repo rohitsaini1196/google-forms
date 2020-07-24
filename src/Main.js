@@ -10,6 +10,7 @@ import Home from './Components/Home'
 import auth from './services/authService'
 import EditForm from './Components/Form/EditForm'
 import Login from './Components/Login'
+import PrivateRoute from './Components/util/PrivateRoute'
 
 function Main() {
   return (
@@ -19,7 +20,8 @@ function Main() {
                 <Route exact path="/" component={Home}/> 
                 <Route exact path="/login" component={Login}/>
                 
-                <Route path="/form/:formId" component={EditForm}/>
+                <PrivateRoute path="/form/:formId" component={EditForm}/>
+               
             </Switch>
         </Router>
     </div>

@@ -5,9 +5,10 @@ import auth from '../../services/authService';
 function Forms() {
 
     const [user, setUser] = React.useState({})
-
+    console.log(user);
+    
     React.useEffect(()=>{
-        setUser(auth.getGuestUser());
+        setUser(auth.getCurrentUser);
     }, [])
 
     return (

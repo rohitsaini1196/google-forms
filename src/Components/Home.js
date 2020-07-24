@@ -3,14 +3,13 @@ import React from 'react'
 import Dashboard from './Dashboard'
 import LandingPage from './LandingPage'
 
-//import auth from '../services/authService'
+import auth from '../services/authService'
 
 
 function Home() {
-
+const isAuthenticated = auth.isAuthenticated();
   return (
-       // auth.isAuthenticated 
-       true
+       isAuthenticated
         ? (
             <Dashboard />
         ) : (
