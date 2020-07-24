@@ -16,8 +16,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-
 import Forms from './Form/Forms';
+import { useHistory } from "react-router-dom";
+
 
 
 
@@ -92,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
   
 
 function Dashboard() {
+    let history = useHistory();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -99,6 +101,15 @@ function Dashboard() {
   
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+
+    const addForm = ()=>{
+      var x = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      console.log(x);
+
+      history.push("/form/"+x);
+      
+    }
   
     
   
@@ -167,7 +178,7 @@ function Dashboard() {
     const [user, setUser] = React.useState({})
 
     React.useEffect(()=>{
-        setUser(auth.getUser());
+        setUser(auth.getGuestUser());
     }, [])
 
   return (
@@ -184,7 +195,7 @@ function Dashboard() {
         </IconButton>
 
         <Typography className={classes.title} variant="h6" noWrap>
-          StillThirsty Forms
+          Velocity Forms
         </Typography>
 
         <div className={classes.search}>
@@ -205,7 +216,7 @@ function Dashboard() {
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
           
-          <IconButton aria-label="Create new form" color="inherit"> 
+          <IconButton aria-label="Create new form" color="inherit" onClick={addForm}> 
               <AddIcon />
           </IconButton>
 
@@ -213,7 +224,7 @@ function Dashboard() {
             edge="end"
             aria-label="account of current user"
             color="inherit"
-            onClick={()=>{alert(user)}}
+            onClick={()=>{alert(user.name)}}
           >
             <AccountCircle />
           </IconButton>

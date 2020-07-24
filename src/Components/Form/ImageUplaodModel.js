@@ -14,9 +14,9 @@ function ImageUplaodModel(props){
   const [image, setImage] = React.useState(undefined);
   const [imageWarning, setImageWarning]= React.useState("");
 
-  const selectImage = (e)=>{
-    setImage({ image:e.target.files[0]})
-  }
+  // const selectImage = (e)=>{
+  //   setImage({ image:e.target.files[0]})
+  // }
 
 
 
@@ -36,7 +36,7 @@ function ImageUplaodModel(props){
       formData.append('myfile', image)
       uploadService.uploadImage(formData)
       .then((data) => {
-        console.log(data);
+       // console.log(data);
         var imageLink = data.host + "/" + data.image
         props.handleImagePopClose();
         props.updateImageLink(imageLink, props.contextData);
@@ -71,6 +71,9 @@ function ImageUplaodModel(props){
                       type="file"
                       onChange={e => setImage(e.target.files[0])}
                     />
+                    { imageWarning !== "" ? (
+                      <p>{imageWarning}</p>
+                    ): ""}
                   </DialogContent>
 
                   <DialogActions>

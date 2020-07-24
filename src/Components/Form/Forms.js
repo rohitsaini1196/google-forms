@@ -7,12 +7,12 @@ function Forms() {
     const [user, setUser] = React.useState({})
 
     React.useEffect(()=>{
-        setUser(auth.getUser());
+        setUser(auth.getGuestUser());
     }, [])
 
     return (
         <div> 
-        <p>List render of all availiblr forms of the user</p>
+        <p>List render of all available forms of the user</p>
         <p>Welcome back Mr. {user.name}</p>
         </div>
     );

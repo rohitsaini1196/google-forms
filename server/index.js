@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const path = require("path");
 const multer = require("multer");
 const mongoose  = require("mongoose");
@@ -6,6 +7,7 @@ const app = express();
 const ImageModel = require('./db/Image');
 require('dotenv/config')
 const cors = require("cors");
+const router = require('./routes/router')
 
 
 //db
@@ -28,7 +30,9 @@ const upload = multer({ storage });
 //middleware
 app.use(express.static('public'))
 app.use(cors());
-
+app.use(bodyParser.json({limit : '50mb',extended : true}));
+app.use(bodyParser.urlencoded({limit: '50mb',extended : true}));
+app.use(express.json());
 
 
 //routes
@@ -41,21 +45,24 @@ app.get('/', async(req, res)=>{
     }
 });
 
-app.post('/', upload.single('myfile'), async(req, res) => {
- const file = req.file; // file passed from client
- const meta = req.body; // all other values passed from the client, like name, etc..
- 
- var data = {
-     image: req.file.filename
- }
- var newImage = new ImageModel(data);
-    await newImage.save().then((docs)=>{
-        console.log(docs);
-        res.json({image: docs.image,
-            host: req.protocol + '://' + req.get('host')})
 
-    });
+app.post('/', upload.single('myfile'), async(req, res) => {
+    const file = req.file; // file passed from client
+    const meta = req.body; // all other values passed from the client, like name, etc..
+    
+    var data = {
+        image: req.file.filename
+    }
+    var newImage = new ImageModel(data);
+        await newImage.save().then((docs)=>{
+            console.log(docs);
+            res.json({image: docs.image,
+                host: req.protocol + '://' + req.get('host')})
+
+        });
 });
+
+app.use('/api', router);
 
 
 app.listen(5000,()=>{

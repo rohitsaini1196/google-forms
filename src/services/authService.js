@@ -1,10 +1,24 @@
-export default   {
-    isAuthenticated: false,
 
-    getUser(){
-        return {name: "Test User", userId: "coolboy69", email: "coolboy69@gg.com"}
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+const API_URL = "http://localhost:5000/api/user/";
+
+
+
+export default   {
+
+    isAuthenticated() {
+      const token = localStorage.getItem('userTicket')
+        if (token) {
+          return true
+        } else {
+          return false
+        }
     },
 
+    getGuestUser(){
+        return {name: "Guest 123", userId: "guest123", email: "coolboy69@gg.com"}
+    },
 
     authenticate(cb) {
       this.isAuthenticated = true;
@@ -14,5 +28,32 @@ export default   {
     signout(cb) {
       this.isAuthenticated = false;
       setTimeout(cb, 100);
-    }
+    },
+
+
+    loginWithGoogle(res) {
+      var data = {
+        name: res.profileObj.name,
+        email : res.profileObj.email,
+        image: res.profileObj.imageUrl
+      }
+
+      return axios
+        .post(API_URL + "login", data)
+        .then(response => {
+          console.log(response.data); 
+          if (response.data.accessToken) {
+            localStorage.setItem("userTicket", JSON.stringify(response.data.accessToken));          
+          }
+          return response.data;
+        });
+    },
+
+    logout() {
+      localStorage.removeItem("userTicket");
+    },
+
+    getCurrentUser() {
+       return jwtDecode(localStorage.getItem('userTicket'));
+     },
   };

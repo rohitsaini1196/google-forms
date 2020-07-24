@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
   BrowserRouter as Router,
   Route,
@@ -7,21 +6,14 @@ import {
   useHistory,
   useLocation
 } from 'react-router-dom'
-
 import Home from './Components/Home'
 import auth from './services/authService'
-
 import EditForm from './Components/Form/EditForm'
-
-
+import Login from './Components/Login'
 
 function Main() {
-   
   return (
-
-    
     <div>
-         
         <Router>
             <Switch>
                 <Route exact path="/" component={Home}/> 
@@ -33,25 +25,23 @@ function Main() {
     </div>
   );
 }
-
 export default Main
 
+// function Login(){
+//     let history = useHistory();
+//     let location = useLocation();
 
-function Login(){
-    let history = useHistory();
-    let location = useLocation();
+//     let { from } = location.state || { from: { pathname: "/" } };
+//     let login = () => {
+//         auth.authenticate(() => {
+//           history.replace(from);
+//         });
+//       };
 
-    let { from } = location.state || { from: { pathname: "/" } };
-    let login = () => {
-        auth.authenticate(() => {
-          history.replace(from);
-        });
-      };
-
-    return (
-        <div>
-            <p>Login form goes here</p>
-            <button onClick={login}>Login</button>
-        </div>
-    );
-}
+//     return (
+//         <div>
+//             <p>Login form goes here</p>
+//             <button onClick={login}>Login</button>
+//         </div>
+//     );
+// }

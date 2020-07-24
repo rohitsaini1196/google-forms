@@ -2,8 +2,6 @@ import React from 'react'
 //import QuestionHeader from './QuestionHeader';
 import {Grid} from '@material-ui/core';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
 
 import { Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -15,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 import CloseIcon from '@material-ui/icons/Close';
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
@@ -29,8 +27,8 @@ import ImageUplaodModel from './ImageUplaodModel';
 
 function QuestionsTab() {
 
-  const [formTitle, setFormTitle] = React.useState("");
-  const [formDescription, setFormDescription] = React.useState("");
+ // const [formTitle, setFormTitle] = React.useState("");
+ // const [formDescription, setFormDescription] = React.useState("");
   const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
   const [openUploadImagePop, setOpenUploadImagePop] = React.useState(false);
   const [imageContextData, setImageContextData] = React.useState({question: null, option: null});
@@ -39,7 +37,7 @@ function QuestionsTab() {
 
   function checkImageHereOrNotForQuestion(gg){
    // console.log(gg);
-    if ((gg == undefined)||(gg=="")){
+    if ((gg === undefined)||(gg==="")){
       return false;
     } else{
       return true;
@@ -48,7 +46,7 @@ function QuestionsTab() {
 
   function checkImageHereOrNotForOption(gg){
    // console.log(gg);
-    if ((gg == undefined)||(gg=="")){
+    if ((gg === undefined)||(gg==="")){
       return false;
     } else{
       return true;
@@ -98,9 +96,9 @@ function QuestionsTab() {
     
   }
 
-  const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
+  // const handleDelete = () => {
+  //   console.info('You clicked the delete icon.');
+  // };
 
 
   function updateImageLink(link, context){
@@ -205,7 +203,7 @@ function QuestionsTab() {
     
     let qs = [...questions]; 
     for (let j = 0; j < qs.length; j++) {
-      if(i ==j ){
+      if(i ===j ){
         qs[i].open = true;
        // console.log("value in first if block is: " + j);
         
@@ -286,7 +284,7 @@ function QuestionsTab() {
                         rows={2}
                         rowsMax={20}
                         multiline={true}
-                        fullWidth 
+
                         value={ques.questionText}
                         variant="filled"
                       onChange={(e)=>{handleQuestionValue(e.target.value, i)}}
