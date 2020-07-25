@@ -183,7 +183,7 @@ export default function LangingPage() {
            <div>
            <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
-                <CardActionArea component="a" href="#">
+                <CardActionArea component="a" href="/">
                   <Card className={classes.card}>
                     <div className={classes.cardDetails}>
                       <CardContent>
@@ -206,7 +206,7 @@ export default function LangingPage() {
                 </CardActionArea>
               </Grid>
               <Grid item xs={12} md={6}>
-                <CardActionArea component="a" href="#">
+                <CardActionArea component="a" href="/">
                   <Card className={classes.card}>
                     <div className={classes.cardDetails}>
                       <CardContent>
@@ -232,6 +232,9 @@ export default function LangingPage() {
            </div>
           </Container>
 
+          <br></br>
+          <br></br>
+          <br></br>
           <br></br>
         </div>
       </main>
