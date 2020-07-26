@@ -57,7 +57,14 @@ function Login(props){
         console.log(response);
         authService.loginWithGoogle(response)
         .then(() => {
+          console.log(from.pathname);
+          
+          if(from.pathname == "/login"){
+            history.push("/");
+
+          }else{
             history.push(from.pathname);
+          }
           },
           error => {
             const resMessage =
@@ -134,14 +141,13 @@ function Login(props){
                                 <p>Already logged in. Want to logout?</p>
                                 <button onClick={logout}>Logout </button>
                             </div>) : (
-                        // <button onClick={loginAsGuest}>Login as Guest</button>
-                        <Button
+                           <Button
                             onClick={loginAsGuest}
                             variant="contained"
                             style={{textTransform: "none"}}
                             startIcon={<Avatar  src={"https://static.thenounproject.com/png/3244607-200.png"}/>  } >
                             Login as Guest(Anonymous)
-                      </Button>
+                        </Button>
                    )
                }
             </div>

@@ -2,8 +2,8 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
-//const API_URL = "http://localhost:5000/api/user/";
-const API_URL = "http://192.168.225.23:5000/api/user/"
+const API_URL = "http://localhost:5000/api/user/";
+//const API_URL = "http://192.168.225.23:5000/api/user/"
 
 
 

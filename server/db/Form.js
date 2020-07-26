@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
-
-
 var FormSchema = new mongoose.Schema({
 
   createdBy: {
@@ -10,16 +8,24 @@ var FormSchema = new mongoose.Schema({
     ref: 'User'
   },
 
+  name: String,
+
+  description: {
+    type: String,
+    default: ""
+  },
+
   questions : [{
     questionText: String,
     questionImage: {type: String, default: ""},
-
     options: [{
       optionText : String,
       optionImage: {type: String, default: ""},
-    }]
-    
-  }]
+    }] 
+  }],
+
+  stared : {type: Boolean, default : false}
+  
  }, {timestamps: true});
 
 FormSchema.plugin(mongoosePaginate);
