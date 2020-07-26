@@ -6,23 +6,14 @@ import React from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+
 import ViewListIcon from '@material-ui/icons/ViewList';
-import Paper from '@material-ui/core/Paper';
-import Hidden from '@material-ui/core/Hidden';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import AcUnitIcon from '@material-ui/icons/AcUnit';
-import IconButton from '@material-ui/core/IconButton';
+
 import GoogleButton from 'react-google-button'
 import Avatar from "@material-ui/core/Avatar";
 
@@ -156,39 +147,6 @@ function Login(props){
             </main>
         </div>
     )
-
-    // return (
-    //     <div>
-    //         {isLogined ?
-    //             "": 
-    //             <GoogleLogin
-    //                 clientId={CLIENT_ID}
-    //                 buttonText='Login'
-    //                 onSuccess={loginGoogle}
-    //                 onFailure={handleLoginFailure}
-    //                 cookiePolicy={ 'single_host_origin' }
-    //                 responseType='code,token'
-    //             />
-    //         }
-
-    //         <br></br>
-    //         <br></br>
-
-    //         <div>
-    //            {
-    //                isLogined ? (
-    //                    <div>
-    //                        <p>Already logged in. Want to logout?</p>
-    //                        <button onClick={logout}>Logout </button>
-    //                    </div>
-                    
-    //                ) : (
-    //                     <button onClick={loginAsGuest}>Login as Guest</button>
-    //                )
-    //            }
-    //         </div>
-    //     </div>
-    // )
 }
 
 export default Login;

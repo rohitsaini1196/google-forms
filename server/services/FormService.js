@@ -14,7 +14,6 @@ module.exports = {
         }
     },
 
-
     createForm: async(req,res)=>{     
         try {
              var data = {
@@ -92,11 +91,6 @@ module.exports = {
 
     editForm : async(req, res)=>{
         try {
-            console.log("afgfdswdefdgfsa");
-            //console.log(req.body);
-            
-            
-
             var  formId =  req.body.formId;
             var data = {
                 name: req.body.name,
