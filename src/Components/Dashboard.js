@@ -99,6 +99,7 @@ function Dashboard() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const [user, setUser] = React.useState({})
+   
 
     React.useEffect(()=>{
       setUser(auth.getCurrentUser())
@@ -256,7 +257,7 @@ function Dashboard() {
 
             <div style={{marginTop:"10px"}}>
 
-                <Forms />
+                <Forms userId={user.id}/>
             </div>
     </div>
   </div>

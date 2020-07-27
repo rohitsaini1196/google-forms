@@ -116,7 +116,7 @@ module.exports = {
         try {
             var userId = req.params.userId;
             console.log(userId);
-            await UserModel.findOne({_id:userId}).lean().then(async(user)=>{
+            await UserModel.findOne({_id:userId}).then(async(user)=>{
                 if(user == null){
                     res.status(404).send('User not found');
                 } else{ 
