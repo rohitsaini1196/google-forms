@@ -98,12 +98,18 @@ module.exports = {
                 questions: req.body.questions
             }
 
+            console.log("Hi, I am from backend, this is form data that i recivied");
+            
+
+            console.log(data);
+            
+
             FormModel.findByIdAndUpdate(formId, data ,{new: true} ,(err, result)=>{
                 if(err){
                     res.status(500).send(err)
                 }
                 else{
-                    res.status(202).send("Profile updated")
+                    res.status(200).json(result)
                 }
             });
            

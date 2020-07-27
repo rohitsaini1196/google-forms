@@ -19,6 +19,14 @@ import HomeIcon from '@material-ui/icons/Home';
 import Forms from './Form/Forms';
 import { useHistory } from "react-router-dom";
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import formService from '../services/formService';
 
 
 
@@ -97,6 +105,18 @@ function Dashboard() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [open, setOpen] = React.useState(false);
+
+    const [formTitle, setFormTitle] = React.useState("");
+    const [formDescription, setFormDescription] = React.useState("");
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [user, setUser] = React.useState({})
    
@@ -110,11 +130,11 @@ function Dashboard() {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const addForm = ()=>{
-      var x = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      console.log(x);
-      history.push("/form/"+x);
-    }
+    // const addForm = ()=>{
+    //   var x = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    //   console.log(x);
+    //   history.push("/form/"+x);
+    // }
 
     const logout =()=>{
       var logoutConfirmation = window.confirm("Really want to logout?");
@@ -123,6 +143,39 @@ function Dashboard() {
         auth.logout();
         history.push("/login");
       }
+    }
+
+    const cancelAddForm = ()=>{
+      handleClose();
+      setFormTitle("");
+      setFormDescription("");
+    }
+
+    const createForm = ()=>{
+      var data = {
+        name : formTitle,
+        description: formDescription,
+        createdBy: user.id
+      }
+      if (data.name !=="") {
+        formService.createForm(data)
+        .then((result) => { 
+          console.log(result);
+          history.push("/form/"+result._id);
+          
+           },
+
+           error => {
+           const resMessage =
+               (error.response &&
+               error.response.data &&
+               error.response.data.message) ||
+               error.message ||
+               error.toString();
+               console.log(resMessage);
+           }
+       );
+      } 
     }
   
     
@@ -167,7 +220,7 @@ function Dashboard() {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <MenuItem onClick={addForm}>
+        <MenuItem onClick={handleClickOpen}>
           <IconButton aria-label="show 11 new notifications" color="inherit">
            
               <AddIcon />
@@ -224,7 +277,7 @@ function Dashboard() {
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
           
-          <IconButton aria-label="Create new form" color="inherit" onClick={addForm}> 
+          <IconButton aria-label="Create new form" color="inherit" onClick={handleClickOpen}> 
               <AddIcon />
           </IconButton>
 
@@ -254,7 +307,46 @@ function Dashboard() {
     {renderMobileMenu}
     {renderMenu}
     <div>
-
+            <div>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">Create Form</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Creating  a new empty form, just add form name and description if you want.
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Form Name"
+                  type="text"
+                  fullWidth={false}
+                  value={formTitle} 
+                  onChange={(e)=>{setFormTitle(e.target.value)}}
+                /> 
+                <br></br>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="description"
+                  label="Form description"
+                  type="text"
+                  fullWidth
+                  value={formDescription} 
+                  onChange={(e)=>{setFormDescription(e.target.value)}}
+                /> 
+                <br></br>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={cancelAddForm} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={createForm} color="primary">
+                  Create
+                </Button>
+              </DialogActions>
+            </Dialog>   
+            </div>
             <div style={{marginTop:"10px"}}>
 
                 <Forms userId={user.id}/>

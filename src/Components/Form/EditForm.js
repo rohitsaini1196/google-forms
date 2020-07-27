@@ -24,6 +24,8 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 
 import QuestionsTab from './QuestionsTab';
 import ResponseTab from './ResponseTab';
+import formService from '../../services/formService';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
 function EditForm(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const [formDeatils, setFormDetails] = React.useState({});
   
 
   const handleChange = (event, newValue) => {
@@ -60,8 +64,25 @@ function EditForm(props) {
 
     React.useEffect(() => {
         var formId = props.match.params.formId
-        console.log(formId);
-         
+        //console.log(formId);
+
+        if(formId !== undefined){
+          formService.getForm(formId)
+          .then((data) => { 
+              console.log(data);     
+              setFormDetails(data)       
+             },
+             error => {
+             const resMessage =
+                 (error.response &&
+                 error.response.data &&
+                 error.response.data.message) ||
+                 error.message ||
+                 error.toString();
+                 console.log(resMessage);
+             }
+         );
+        }
     },[props.match.params.formId]);
 
 
@@ -80,7 +101,7 @@ function EditForm(props) {
                         <ViewListIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap style={{marginTop: '8.5px', color:'black'}}>
-                        Untitled Form
+                        {formDeatils.name}
                     </Typography>
                     {/* <IconButton
                         aria-label="Rohit Saini's form"
@@ -133,7 +154,7 @@ function EditForm(props) {
 
         <div>
             <TabPanel value={value} index={0}>
-                <QuestionsTab />
+                <QuestionsTab formData={formDeatils} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <ResponseTab />

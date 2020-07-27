@@ -16,12 +16,13 @@ var FormSchema = new mongoose.Schema({
   },
 
   questions : [{
+    open: {type: Boolean, default: false},
     questionText: String,
     questionImage: {type: String, default: ""},
     options: [{
       optionText : String,
       optionImage: {type: String, default: ""},
-    }] 
+    }],
   }],
 
   stared : {type: Boolean, default : false}

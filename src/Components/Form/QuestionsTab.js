@@ -24,16 +24,61 @@ import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import ImageUplaodModel from './ImageUplaodModel';
+import formService from '../../services/formService';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-function QuestionsTab() {
 
- // const [formTitle, setFormTitle] = React.useState("");
- // const [formDescription, setFormDescription] = React.useState("");
-  const [questions, setQuestions]= React.useState([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
+function QuestionsTab(props) {
+
+
+  const [questions, setQuestions]= React.useState([]);
   const [openUploadImagePop, setOpenUploadImagePop] = React.useState(false);
   const [imageContextData, setImageContextData] = React.useState({question: null, option: null});
-  //console.log(questions);
+  const [formData, setFormData] = React.useState({});
+  const [loadingFormData, setLoadingFormData] = React.useState(true);
   
+
+  React.useEffect(()=>{
+    
+    if(props.formData.questions !== undefined){
+      //console.log(props.formData.questions.length);
+      if(props.formData.questions.length === 0){
+        setQuestions([{questionText: "Question", options : [{optionText: "Option 1"}], open: false}]);
+      } else{
+        setQuestions(props.formData.questions)
+      }
+      setLoadingFormData(false)
+    } 
+    setFormData(props.formData)
+  }, [props.formData])
+  
+
+  function saveQuestions(){
+    console.log("auto saving questions initiated");
+    var data = {
+      formId: formData._id,
+      name: formData.name,
+      description: formData.description,
+      questions: questions
+    }
+
+    formService.autoSave(data)
+    .then((result) => {     
+         console.log(result);
+         setQuestions(result.questions)
+        },
+        error => {
+        const resMessage =
+            (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString();
+            console.log(resMessage);
+        }
+    );
+    
+  }
 
   function checkImageHereOrNotForQuestion(gg){
    // console.log(gg);
@@ -96,16 +141,10 @@ function QuestionsTab() {
     
   }
 
-  // const handleDelete = () => {
-  //   console.info('You clicked the delete icon.');
-  // };
-
-
   function updateImageLink(link, context){
     
     var optionsOfQuestion = [...questions];
     var i = context.question
-   // console.log(i);
 
     if (context.option == null) {
       optionsOfQuestion[i].questionImage= link;
@@ -113,7 +152,6 @@ function QuestionsTab() {
       var j = context.option
       optionsOfQuestion[i].options[j].optionImage = link;
     }
-    //console.log(optionsOfQuestion);
     setQuestions(optionsOfQuestion);
   }
 
@@ -138,7 +176,6 @@ function QuestionsTab() {
       setQuestions(optionsOfQuestion);
   }
 
-
  function onDragEnd(result) {
   if (!result.destination) {
     return;
@@ -161,11 +198,8 @@ function QuestionsTab() {
     return result;
   };
 
-
   function showAsQuestion(i){
     let qs = [...questions];  
-    //console.log(qs[i]);
-    
      qs[i].open = false;
      setQuestions(qs);
   }
@@ -199,21 +233,15 @@ function QuestionsTab() {
   }
 
   function handleExpand(i){
-    //console.log("handle expand for i = " + i);
-    
     let qs = [...questions]; 
     for (let j = 0; j < qs.length; j++) {
       if(i ===j ){
         qs[i].open = true;
-       // console.log("value in first if block is: " + j);
-        
+ 
       } else{
-       // console.log("value in second or else block is: " + j);
-
         qs[j].open = false;
        }
     }
-   
      setQuestions(qs);
   }
 
@@ -423,6 +451,7 @@ function QuestionsTab() {
             justify="center"
             alignItems="center"
             >
+              {loadingFormData ? (<CircularProgress />):""}
               
              <Grid item xs={12} sm={5} style={{width: '100%'}}>
                  
@@ -431,8 +460,10 @@ function QuestionsTab() {
                           <div>
                             <Paper elevation={2} style={{width:'100%'}}>
                               <div style={{display: 'flex',flexDirection:'column', alignItems:'flex-start', marginLeft: '15px', paddingTop: '20px', paddingBottom: '20px'}}>
-                              <Typography variant="h4" style={{fontFamily:'sans-serif Roboto', marginBottom:"15px"}}>Untitled form</Typography>
-                              <Typography variant="subtitle1">Form description</Typography>
+                                <Typography variant="h4" style={{fontFamily:'sans-serif Roboto', marginBottom:"15px"}}>
+                                  {formData.name}
+                                </Typography>
+                                <Typography variant="subtitle1">{formData.description}</Typography>
                               </div>
                             </Paper>
                           </div> 
@@ -464,6 +495,13 @@ function QuestionsTab() {
                           onClick={addMoreQuestionField}
                           endIcon={<AddCircleIcon />}
                         >Add Question </Button>
+
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={saveQuestions}
+                          endIcon={<AddCircleIcon />}
+                        >Save Questions </Button>
                       </div>
                     </div>
                   </Grid>        

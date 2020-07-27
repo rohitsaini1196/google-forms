@@ -11,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-
 const useStyles = makeStyles((theme)=>
     ({
         root: {
@@ -35,7 +34,7 @@ export default function OneForm(props) {
 
 
     React.useEffect(()=>{
-        console.log(props.formData)
+        //console.log(props.formData)
         setForm(props.formData)
     }, [props.formData])
 
@@ -43,7 +42,7 @@ export default function OneForm(props) {
        
               <Grid item  xs={12} sm={6} md={3}>
                     <Card className={classes.root}>
-                        <CardActionArea>
+                        <CardActionArea href={"/form/"+form._id}>
                             <CardMedia
                             className={classes.media}
                             image="https://static.makeuseof.com/wp-content/uploads/2019/06/AutoGradingQuizResults-GoogleForms.jpg"
@@ -56,6 +55,10 @@ export default function OneForm(props) {
                             <Typography variant="body2" color="textSecondary" component="p">
                                {form.description}
                             </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {form.createdAt}
+                            </Typography>
+                            
                             </CardContent>
                         </CardActionArea>
                         <CardActions>
