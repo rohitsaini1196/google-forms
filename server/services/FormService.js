@@ -110,5 +110,31 @@ module.exports = {
         } catch (error) {
             res.send(error)
         }
+    },
+
+    getAllFormsOfUser: async(req, res)=>{
+        try {
+            var userId = req.params.userId;
+            console.log(userId);
+            await UserModel.findOne({_id:userId}).lean().then(async(user)=>{
+                if(user == null){
+                    res.status(404).send('User not found');
+                } else{ 
+                   await FormModel.find().where('_id').in(user.createdForms).exec((err, records) => {
+                       console.log(records);
+       
+                       res.status(200).json(records);
+                   });
+                }
+
+             //   res.send(docs.createdForms)
+            });
+
+            
+        } catch (error) {
+            res.send(error)
+        }
     }
+
+
 }
