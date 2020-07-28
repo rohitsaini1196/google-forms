@@ -30,7 +30,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 function QuestionsTab(props) {
 
-
   const [questions, setQuestions]= React.useState([]);
   const [openUploadImagePop, setOpenUploadImagePop] = React.useState(false);
   const [imageContextData, setImageContextData] = React.useState({question: null, option: null});

@@ -23,7 +23,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
 import QuestionsTab from './QuestionsTab';
-import ResponseTab from './ResponseTab';
+import ResponseTab from '../Response/ResponseTab';
 import formService from '../../services/formService';
 
 

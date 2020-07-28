@@ -32,7 +32,6 @@ export default {
 
     autoSave(data){
         console.log(data);
-        
         return axios
         .put(API_URL + "/editform/", data)
         .then(response =>{
@@ -41,5 +40,8 @@ export default {
           })
 
     }
+
+    
+    
   };
 

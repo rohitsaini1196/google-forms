@@ -11,6 +11,7 @@ import auth from './services/authService'
 import EditForm from './Components/Form/EditForm'
 import Login from './Components/Login'
 import PrivateRoute from './Components/util/PrivateRoute'
+import UserView from './Components/Responding/UserView'
 
 function Main() {
   return (
@@ -21,6 +22,7 @@ function Main() {
                 <Route exact path="/login" component={Login}/>
                 
                 <PrivateRoute path="/form/:formId" component={EditForm}/>
+                <Route exact path="/s/:formId" component={UserView} />
                
             </Switch>
         </Router>
