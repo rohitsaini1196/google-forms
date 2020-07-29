@@ -34,7 +34,7 @@ function UserView(props) {
     
     const [questions, setQuestions] = React.useState([]);
     const [value, setValue] = React.useState('');
-    console.log(value);
+    //console.log(value);
     
     
 
@@ -151,7 +151,9 @@ function UserView(props) {
                                 {ques.options.map((op, j)=>(
                                   <div key={j}>
                                     <div style={{display: 'flex', marginLeft: '7px'}}>
-                                      <FormControlLabel value={j} control={<Radio />} label="The worst." />
+                                       <FormControlLabel  value={j} control={<Radio />} label="The worst." />
+              
+
                                     </div>
 
                                     <div style={{display: 'flex', marginLeft: '10px'}}>
@@ -197,3 +199,14 @@ function UserView(props) {
 }
 
 export default UserView;
+
+const FormControlLabelWrapper = props => {
+  const { radioButton, ...labelProps } = props;
+  return (
+    <FormControlLabel
+      control={<Radio />}
+      label={"Radio " + props.value + props.jIndex}
+      {...labelProps}
+    />
+  );
+};

@@ -21,40 +21,34 @@ export default function ErrorRadios() {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState('Choose wisely');
+
 
   const handleRadioChange = (event) => {
       console.log(event.target.value);
       
     setValue(event.target.value);
-    setHelperText(' ');
+    
     setError(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     console.log(value);
-    
-    
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormControl component="fieldset" error={error} className={classes.formControl}>
-        <FormLabel component="legend">Pop quiz: Material-UI is...</FormLabel>
-        <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
-          <FormControlLabel value="best" control={<Radio />} label="The best!" />
-          
+    
+        <div>
+          <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
+
           {["", "", ""].map((op, j)=>(
-              <FormControlLabel value={j} control={<Radio />} label={"the worst"+ j} />
+              <FormControlLabel key={j} value={j} control={<Radio />} label={"the worst"+ j} />
           ))}
         </RadioGroup>
-        <FormHelperText>{helperText}</FormHelperText>
-        <Button type="submit" variant="outlined" color="primary" className={classes.button}>
+        
+        <Button variant="outlined" color="primary" className={classes.button} onClick={handleSubmit}>
           Check Answer
         </Button>
-      </FormControl>
-    </form>
+        </div>
+      
   );
 }
