@@ -28,15 +28,35 @@ function UserView(props) {
   const classes = useStyles();
 
     const [formData, setFormData] = React.useState({});
-    // const [optionResponse, setOptionResponse] = React.useState(1);
-    // console.log(optionResponse);
-    const [value, setValue] = React.useState('female');
-
-    const handleChange = (event) => {
-      setValue(event.target.value);
-    };
+    const [responseData, setResponseData] = React.useState([])
+    const [optionValue, setOptionValue] = React.useState([])
+    
     
     const [questions, setQuestions] = React.useState([]);
+    const [value, setValue] = React.useState('');
+    console.log(value);
+    
+    
+
+    const handleRadioChange = (j, i) => {
+      var questionId = questions[i]._id
+      var optionId = questions[i].options[j]._id
+
+      var fakeData = {
+        question: i,
+        option: j
+      }
+      var data = {
+        questionId, optionId
+      }
+    //  console.log(data);
+      //console.log(fakeData);
+      console.log(j);
+      
+      setValue(j)
+     // setOptionValue(fakeData);
+    //  setResponseData(responseData=> [...responseData, data])
+    };
 
     React.useEffect(() => {
         var formId = props.match.params.formId
@@ -62,11 +82,11 @@ function UserView(props) {
         
     },[props.match.params.formId]);
 
-    // const handleChange = (event) => {
-    //   console.log(event.target.value);
-      
-    //   setOptionResponse(event.target.value);
-    // };
+    function submitResponse(props){
+      var data = responseData;
+      console.log(data);
+    }
+
     return (
         <div style={{minHeight: '100vh'}}>
           <AppBar position="static" style={{backgroundColor: 'teal'}}>
@@ -125,23 +145,25 @@ function UserView(props) {
                             ): "" }
                             
                               <div>
-                              {ques.options.map((op, j)=>(
-                                <div key={j}>
-                                  <div style={{display: 'flex', marginLeft: '7px'}}>
-                                    <FormControlLabel control={<Radio style={{marginRight: '3px', }} color="primary" />} label={
-                                        <Typography style={{color: '#555555'}}>
-                                         {op.optionText}
-                                        </Typography>
-                                      } />
+
+                              <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={(e)=>{handleRadioChange(e.target.value, i)}}>
+
+                                {ques.options.map((op, j)=>(
+                                  <div key={j}>
+                                    <div style={{display: 'flex', marginLeft: '7px'}}>
+                                      <FormControlLabel value={j} control={<Radio />} label="The worst." />
+                                    </div>
+
+                                    <div style={{display: 'flex', marginLeft: '10px'}}>
+                                        {op.optionImage !==""?(
+                                          <img src={op.optionImage} width="64%" height="auto" />
+                                        ): "" }
+                                      <Divider />
+                                    </div>
                                   </div>
-                                  <div style={{display: 'flex', marginLeft: '10px'}}>
-                                    {op.optionImage !==""?(
-                                      <img src={op.optionImage} width="64%" height="auto" />
-                                    ): "" }
-                                    <Divider />
-                                  </div>
-                                </div>
-                                ))}  
+                                  ))}  
+                                </RadioGroup>
+
                               </div>
                         </div>
                       </div>  
@@ -153,7 +175,9 @@ function UserView(props) {
                   <Grid>
                     <br></br>
                     <div style={{display: 'flex'}}>
-                      <Button variant="contained" color="primary">Submit</Button>
+                      <Button variant="contained" color="primary" onClick={submitResponse}>
+                        Submit
+                      </Button>
                     </div>
                     <br></br>
 
@@ -172,4 +196,4 @@ function UserView(props) {
     )
 }
 
-export default UserView
+export default UserView;
