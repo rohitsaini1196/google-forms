@@ -29,6 +29,8 @@ function UserView(props) {
 
     const [formData, setFormData] = React.useState({});
     const [responseData, setResponseData] = React.useState([])
+    console.log(responseData);
+    
     const [optionValue, setOptionValue] = React.useState([])
     
     
@@ -51,11 +53,24 @@ function UserView(props) {
       }
     //  console.log(data);
       //console.log(fakeData);
-      console.log(j);
+     // console.log(j);
       
       setValue(j)
+
+      var fakeRData = [...responseData];
+      
+      var indexOfResponse = fakeRData.findIndex(x => x.questionId===questionId);
+        if(indexOfResponse === -1){
+        setResponseData(responseData=> [...responseData, data])
+
+        } else{
+          fakeRData[indexOfResponse].questionId = questionId
+          setResponseData(fakeRData);
+        }
+
+      
      // setOptionValue(fakeData);
-    //  setResponseData(responseData=> [...responseData, data])
+    //  
     };
 
     React.useEffect(() => {
