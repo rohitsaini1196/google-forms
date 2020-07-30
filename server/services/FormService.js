@@ -1,5 +1,6 @@
 const FormModel = require('../db/Form')
 const UserModel = require('../db/User')
+const ResponseModel = require('../db/Response')
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
 
@@ -140,7 +141,57 @@ module.exports = {
         } catch (error) {
             res.send(error)
         }
-    }
+    },
 
+    submitResponse : async(req, res)=>{
+        try {
+            var data = {
+                formId: req.body.formId,
+                userId: req.body.formId,
+                response: req.body.response
+            }
+            console.log(data);
+            
+            if (data.response.length > 0) {
+                var newResponse = new ResponseModel(data)
+                await newResponse.save().then((docs)=>{              
+                    res.status(200).json(
+                        docs
+                    );
+                })
+            } 
+            else{
+                res.status(400).send("FIll atleast one field, MF!"); 
+            } 
+
+        } catch (error) {
+            res.send(error)
+        }
+    },
+
+    allResponses : async(req,res)=>{
+        try{
+            var result = await ResponseModel.find().lean();
+            res.json(result);     
+        }catch(e){
+            res.send(e);
+        }
+    },
 
 }
+
+
+// FormId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Form'
+//   },
+
+//   userId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'User'     
+//   },
+
+//   response : [{
+//       questionId: String,
+//       optionId: String,
+//   }],

@@ -38,8 +38,17 @@ export default {
               console.log(response.data);
               return response.data;   
           })
+    },
 
-    }
+    submitResponse(data){
+        console.log(data);
+        return axios
+        .post(API_URL + "addresponse", data)
+        .then(response =>{
+            console.log(response.data); 
+            return response.data;
+        })
+    },
 
     
     

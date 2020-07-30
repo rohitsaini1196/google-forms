@@ -18,6 +18,8 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import auth from '../../services/authService';
+
 const useStyles = makeStyles((theme) => ({
  
 }));
@@ -27,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
 function UserView(props) {
   const classes = useStyles();
 
+    const [user, setUser] = React.useState({})
     const [formData, setFormData] = React.useState({});
     const [responseData, setResponseData] = React.useState([])
-    console.log(responseData);
+    //console.log(responseData);
     
     const [optionValue, setOptionValue] = React.useState([])
     
@@ -37,6 +40,9 @@ function UserView(props) {
     const [questions, setQuestions] = React.useState([]);
     const [value, setValue] = React.useState('');
     //console.log(value);
+    React.useEffect(()=>{
+      setUser(auth.getCurrentUser);  
+    }, [])
     
     
 
@@ -97,9 +103,28 @@ function UserView(props) {
         
     },[props.match.params.formId]);
 
-    function submitResponse(props){
-      var data = responseData;
-      console.log(data);
+    function submitResponse(){
+      var submissionData = {
+        formId: formData._id,
+        userId: user.id,
+        response: responseData
+      }
+      formService.submitResponse(submissionData)
+      .then((data2) => { 
+
+        console.log(data2);
+       },
+       error => {
+       const resMessage =
+           (error.response &&
+           error.response.data &&
+           error.response.data.message) ||
+           error.message ||
+           error.toString();
+           console.log(resMessage);
+       }
+   );
+      
     }
 
     return (
