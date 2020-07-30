@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
+import {Grid} from '@material-ui/core';
+
+import { Paper, Typography } from '@material-ui/core';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -9,14 +12,22 @@ import Box from '@material-ui/core/Box';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PaletteIcon from '@material-ui/icons/Palette';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SendIcon from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
@@ -46,6 +57,14 @@ const useStyles = makeStyles((theme) => ({
       alignSelf: 'flex-end',
       justifySelf: 'center'
     },
+    paper: {
+      padding: theme.spacing(2),
+      color: theme.palette.text.secondary,
+      display: 'flex',
+      alignContent: 'space-between',
+      alignItems: 'center'
+  }
+    
   }));
 
 
@@ -53,19 +72,49 @@ const useStyles = makeStyles((theme) => ({
 function EditForm(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
 
   const [formDeatils, setFormDetails] = React.useState({});
-  
+  const [openOfAlert, setOpenOfAlert] = React.useState(false);
+
+  const clipToClipboard = ()=>{
+    navigator.clipboard.writeText(window.location.origin + "/s/" + formDeatils._id)
+    handleClickOfAlert();
+    handleClose();
+  }
+
+  const handleClickOfAlert = () => {
+    setOpenOfAlert(true);
+  };
+
+  const handleCloseOfAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenOfAlert(false);
+  };
+
+
+  function sendForm(){
+    handleClickOpen(); 
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
     React.useEffect(() => {
         var formId = props.match.params.formId
-        //console.log(formId);
-
         if(formId !== undefined){
           formService.getForm(formId)
           .then((data) => { 
@@ -128,7 +177,7 @@ function EditForm(props) {
                     <Tab label="Questions" />
                     <Tab label="Responses" />
                 </Tabs>
-                    <IconButton aria-label="search">
+                    <IconButton aria-label="search" onClick={sendForm}>
                         <SendIcon />
                     </IconButton>
                 
@@ -150,6 +199,65 @@ function EditForm(props) {
                     </IconButton>
                     </Toolbar>
                 </AppBar>
+            </div>
+            <div>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+              
+            >
+              <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+              <DialogContent>
+              <Paper className={classes.paper}>
+                  <Grid container alignContent="space-between" alignItems="center">
+                      <Grid item>
+                          <Typography variant="body1">{window.location.origin + "/s/" + formDeatils._id}</Typography>
+                          
+                      </Grid>
+                      <Grid item>
+                          <IconButton className={classes.button} aria-label="Add" size="medium" onClick={clipToClipboard} ><FilterNoneIcon /></IconButton>
+                      </Grid>
+                  </Grid>
+              </Paper>
+                  {/* <div style={{padding: '7px', display: 'flex'}}>
+                  <Typography variant="body1">{window.location.origin + "/s/" + formDeatils._id}</Typography>
+                    
+                  <IconButton onClick={() =>  navigator.clipboard.writeText(window.location.origin + "/s/" + formDeatils._id)}  >
+                    <MoreIcon />
+                  </IconButton>
+                  </div> */}
+                  
+                <DialogContentText id="alert-dialog-description">
+                  
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                   Cancel
+                </Button>
+                
+              </DialogActions>
+            </Dialog>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={openOfAlert}
+              autoHideDuration={3000}
+              onClose={handleCloseOfAlert}
+              message="Copied to clipboard"
+              action={
+                <React.Fragment>
+                 
+                  <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseOfAlert}>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
             </div>
 
         <div>
