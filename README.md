@@ -74,16 +74,23 @@ etc.
 
 ## Screenshots
 
+![Home Page](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/homepage.png)
+
 ![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/userview.png)
 
 ![User Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createview.png)
+
+![Submit Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/submitview.png)
 
 ![Basic question perview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/basic-user-question.png)
 
 ![Creater Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/createView-withImage.png)
 
+![Share Link](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/sharelink.png)
+
 ![Creater Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/image-user-view.png)
 
+![Response Preview](https://github.com/rohitsaini1196/google-forms/blob/master/screenshots/response.png)
 
 
 
