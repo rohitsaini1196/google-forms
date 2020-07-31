@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function UserView(props) {
   const classes = useStyles();
 
-    const [user, setUser] = React.useState({})
+    const [userId, setUserId] = React.useState("")
     const [formData, setFormData] = React.useState({});
     const [responseData, setResponseData] = React.useState([])
     //console.log(responseData);
@@ -41,7 +41,15 @@ function UserView(props) {
     const [value, setValue] = React.useState('');
     //console.log(value);
     React.useEffect(()=>{
-      setUser(auth.getCurrentUser);  
+      if(auth.isAuthenticated()){
+        var userr = auth.getCurrentUser();
+        console.log(userr.id);
+        setUserId(userr.id);  
+      } else{
+        var anonymousUserId = "anonymous" +  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        console.log(anonymousUserId);
+        setUserId(anonymousUserId)
+      }
     }, [])
     
     
@@ -106,9 +114,11 @@ function UserView(props) {
     function submitResponse(){
       var submissionData = {
         formId: formData._id,
-        userId: user.id,
+        userId: userId,
         response: responseData
       }
+      console.log(submissionData);
+      
       formService.submitResponse(submissionData)
       .then((data2) => { 
 
@@ -191,7 +201,7 @@ function UserView(props) {
                                 {ques.options.map((op, j)=>(
                                   <div key={j}>
                                     <div style={{display: 'flex', marginLeft: '7px'}}>
-                                       <FormControlLabel  value={j} control={<Radio />} label="The worst." />
+                                       <FormControlLabel  value={j} control={<Radio />} label={op.optionText} />
               
 
                                     </div>

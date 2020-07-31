@@ -3,14 +3,13 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 var ResponseSchema = new mongoose.Schema({
 
-  FormId: {
+  formId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Form'
   },
 
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'     
+    type: String    
   },
 
   response : [{

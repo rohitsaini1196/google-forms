@@ -1,5 +1,5 @@
 var router = require('express').Router()
-const {createForm, formsGet, getFormById, deleteForm, editForm, getAllFormsOfUser, allResponses, submitResponse} = require('../services/FormService')
+const {createForm, formsGet, getFormById, deleteForm, editForm, getAllFormsOfUser, allResponses, submitResponse, getResponse} = require('../services/FormService')
 
 router.route("/create").post(createForm)
 router.route("/forms").get(formsGet)
@@ -10,6 +10,8 @@ router.route("/getuserforms/:userId").get(getAllFormsOfUser)
 
 router.route("/addresponse").post(submitResponse)
 router.route("/responses").get(allResponses)
+
+router.route("/getresponse/:formId").get(getResponse)
 
 
 

@@ -50,6 +50,17 @@ export default {
         })
     },
 
+    getResponse(formId){
+      //  console.log(formId);
+        return axios
+        .get(API_URL + "getresponse/" + formId)
+        .then(response =>{
+           // console.log(response.data); 
+            return response.data;
+        })
+        
+    }
+
     
     
   };

@@ -147,13 +147,17 @@ module.exports = {
         try {
             var data = {
                 formId: req.body.formId,
-                userId: req.body.formId,
+                userId: req.body.userId,
                 response: req.body.response
             }
-            console.log(data);
+            console.log(data.formId);
+            console.log(data.userId);
+            
             
             if (data.response.length > 0) {
                 var newResponse = new ResponseModel(data)
+               // console.log(newResponse);
+                
                 await newResponse.save().then((docs)=>{              
                     res.status(200).json(
                         docs
@@ -163,7 +167,6 @@ module.exports = {
             else{
                 res.status(400).send("FIll atleast one field, MF!"); 
             } 
-
         } catch (error) {
             res.send(error)
         }
@@ -177,6 +180,20 @@ module.exports = {
             res.send(e);
         }
     },
+
+    getResponse: async(req, res)=>{
+        try {
+            var formId = req.params.formId;
+         //   console.log(formId);
+            
+            await ResponseModel.find({formId: formId}).then(async(responses)=>{ 
+                    res.status(200).json(responses)
+            })
+
+        } catch (error) {
+            res.send(error)
+        }
+    }
 
 }
 

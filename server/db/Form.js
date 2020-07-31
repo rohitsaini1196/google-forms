@@ -25,7 +25,9 @@ var FormSchema = new mongoose.Schema({
     }],
   }],
 
-  stared : {type: Boolean, default : false}
+  stared : {type: Boolean, default : false},
+
+  formType: {type: String, default: "anonymous" }
   
  }, {timestamps: true});
 

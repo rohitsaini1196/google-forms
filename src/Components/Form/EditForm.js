@@ -36,6 +36,7 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import QuestionsTab from './QuestionsTab';
 import ResponseTab from '../Response/ResponseTab';
 import formService from '../../services/formService';
+import auth from '../../services/authService';
 
 
 
@@ -73,9 +74,16 @@ function EditForm(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = React.useState({})
+  const [formID, setFormID] = React.useState("");
+
 
   const [formDeatils, setFormDetails] = React.useState({});
   const [openOfAlert, setOpenOfAlert] = React.useState(false);
+
+  React.useEffect(()=>{
+    setUser(auth.getCurrentUser);  
+}, [])
 
   const clipToClipboard = ()=>{
     navigator.clipboard.writeText(window.location.origin + "/s/" + formDeatils._id)
@@ -116,9 +124,10 @@ function EditForm(props) {
     React.useEffect(() => {
         var formId = props.match.params.formId
         if(formId !== undefined){
+          setFormID(formId)
           formService.getForm(formId)
           .then((data) => { 
-              console.log(data);     
+             // console.log(data);     
               setFormDetails(data)       
              },
              error => {
@@ -137,6 +146,8 @@ function EditForm(props) {
 
     return (
         <div>
+          { formDeatils.createdBy === user.id ? (
+            <div>
             <div className={classes.root}>
                 <AppBar position="static" style={{backgroundColor: 'white'}} elevation={2}>
                     <Toolbar className={classes.toolbar}>
@@ -265,9 +276,13 @@ function EditForm(props) {
                 <QuestionsTab formData={formDeatils} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <ResponseTab />
+                <ResponseTab formData={formDeatils} formId={formID} />
             </TabPanel>
         </div>
+        </div>
+          ) : (
+            <p>you're not the owner of the form</p>
+          )}
         </div>
     );
 }
