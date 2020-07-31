@@ -244,7 +244,7 @@ function Dashboard() {
 
   return (
     <div className={classes.grow}>
-    <AppBar position="static">
+    <AppBar position="static" style={{backgroundColor: 'teal'}}>
       <Toolbar>
         <IconButton
           edge="start"

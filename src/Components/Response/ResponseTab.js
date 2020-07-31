@@ -71,19 +71,25 @@ function ResponseTab(props) {
       //console.log(oneResData);
       
       var selectedOp = oneResData.response.filter(qss => qss.questionId === qId);
-    //  console.log(selectedOp);
+     console.log(selectedOp);
 
-      var finalOption = questions[i].options.find(oo => oo._id === selectedOp[0].optionId);
-    return finalOption.optionText
+      if(selectedOp.length > 0){
+
+        var finalOption = questions[i].options.find(oo => oo._id === selectedOp[0].optionId);
+        return finalOption.optionText
+      } else{
+        return "not attempted"
+      }
+
       
       // return selectedOp[0].optionId;
       //this.students.filter(stud => stud.Class==className);
     }
 
-    function getOptionTextById(optionId, questionId, i){
-    var finalOption = questions[i].options.find(oo => oo._id === optionId);
-    return finalOption.optionText
-    }
+    // function getOptionTextById(optionId, questionId, i){
+    // var finalOption = questions[i].options.find(oo => oo._id === optionId);
+    // return finalOption.optionText
+    // }
 
 
   

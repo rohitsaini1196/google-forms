@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Moment from 'react-moment';
 
 
 const useStyles = makeStyles((theme)=>
@@ -56,19 +57,19 @@ export default function OneForm(props) {
                                {form.description}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
-                                {form.createdAt}
+                           Opened:  <Moment fromNow>{form.updatedAt}</Moment>
                             </Typography>
                             
                             </CardContent>
                         </CardActionArea>
-                        <CardActions>
+                        {/* <CardActions>
                             <Button size="small" color="primary">
-                            Share
+                                Share
                             </Button>
                             <Button size="small" color="primary">
-                            Learn More
+                                Learn More
                             </Button>
-                        </CardActions>
+                        </CardActions> */}
                     </Card>
                 </Grid>            
         

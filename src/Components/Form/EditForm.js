@@ -219,7 +219,7 @@ function EditForm(props) {
               aria-describedby="alert-dialog-description"
               
             >
-              <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+              <DialogTitle id="alert-dialog-title">{"Copy and share link."}</DialogTitle>
               <DialogContent>
               <Paper className={classes.paper}>
                   <Grid container alignContent="space-between" alignItems="center">
