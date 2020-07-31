@@ -26,7 +26,7 @@ import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import ImageUplaodModel from './ImageUplaodModel';
 import formService from '../../services/formService';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import SaveIcon from '@material-ui/icons/Save';
 
 function QuestionsTab(props) {
 
@@ -490,16 +490,18 @@ function QuestionsTab(props) {
                     <div>                       
                         <Button
                           variant="contained"
-                          color="primary"
+                          
                           onClick={addMoreQuestionField}
                           endIcon={<AddCircleIcon />}
+                          style={{margin: '5px'}}
                         >Add Question </Button>
 
                         <Button
                           variant="contained"
                           color="primary"
                           onClick={saveQuestions}
-                          endIcon={<AddCircleIcon />}
+                          style={{margin: '15px'}}
+                          endIcon={<SaveIcon />}
                         >Save Questions </Button>
                       </div>
                     </div>

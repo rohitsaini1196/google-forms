@@ -35,6 +35,7 @@ function UserView(props) {
     //console.log(responseData);
     
     const [optionValue, setOptionValue] = React.useState([])
+    const [isSubmitted, setIsSubmitted] = React.useState(false)
     
     
     const [questions, setQuestions] = React.useState([]);
@@ -121,7 +122,7 @@ function UserView(props) {
       
       formService.submitResponse(submissionData)
       .then((data2) => { 
-
+        setIsSubmitted(true)
         console.log(data2);
        },
        error => {
@@ -137,9 +138,14 @@ function UserView(props) {
       
     }
 
+    function reloadForAnotherResponse(){
+      window.location.reload(true);
+    }
+
     return (
         <div style={{minHeight: '100vh'}}>
-          <AppBar position="static" style={{backgroundColor: 'teal'}}>
+         <div>
+         <AppBar position="static" style={{backgroundColor: 'teal'}}>
             <Toolbar>
               <IconButton edge="start" style={{marginRight: '10px', marginBottom: '5px'}} color="inherit" aria-label="menu">
                 <MenuIcon />
@@ -173,58 +179,59 @@ function UserView(props) {
                       </div>       
                   </Grid>  
 
-                  <Grid>
-                    
-                  { questions.map((ques, i)=>(
-                    <div key={i}>
-                      <br></br>
-                    <Paper>
-                      <div>
-                        <div style={{display: 'flex',
-                                   flexDirection:'column', 
-                                   alignItems:'flex-start', 
-                                   marginLeft: '6px', 
-                                   paddingTop: '15px', 
-                                   paddingBottom: '15px'}}>
-                            <Typography variant="subtitle1" style={{marginLeft: '10px'}}>{i+1}. {ques.questionText}</Typography>
-                           
-                            {ques.questionImage !==""?(
-                                <div>
-                                  <img src={ques.questionImage} width="80%" height="auto" /><br></br><br></br>
-                                </div>
-                            ): "" }
-                            
-                              <div>
-
-                              <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={(e)=>{handleRadioChange(e.target.value, i)}}>
-
-                                {ques.options.map((op, j)=>(
-                                  <div key={j}>
-                                    <div style={{display: 'flex', marginLeft: '7px'}}>
-                                       <FormControlLabel  value={j} control={<Radio />} label={op.optionText} />
-              
-
+                 {!isSubmitted ? (
+                   <div>
+                   <Grid>
+                      
+                      { questions.map((ques, i)=>(
+                        <div key={i}>
+                          <br></br>
+                        <Paper>
+                          <div>
+                            <div style={{display: 'flex',
+                                       flexDirection:'column', 
+                                       alignItems:'flex-start', 
+                                       marginLeft: '6px', 
+                                       paddingTop: '15px', 
+                                       paddingBottom: '15px'}}>
+                                <Typography variant="subtitle1" style={{marginLeft: '10px'}}>{i+1}. {ques.questionText}</Typography>
+                               
+                                {ques.questionImage !==""?(
+                                    <div>
+                                      <img src={ques.questionImage} width="80%" height="auto" /><br></br><br></br>
                                     </div>
-
-                                    <div style={{display: 'flex', marginLeft: '10px'}}>
-                                        {op.optionImage !==""?(
-                                          <img src={op.optionImage} width="64%" height="auto" />
-                                        ): "" }
-                                      <Divider />
-                                    </div>
+                                ): "" }
+                                
+                                  <div>
+    
+                                  <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={(e)=>{handleRadioChange(e.target.value, i)}}>
+    
+                                    {ques.options.map((op, j)=>(
+                                      <div key={j}>
+                                        <div style={{display: 'flex', marginLeft: '7px'}}>
+                                           <FormControlLabel  value={j} control={<Radio />} label={op.optionText} />
+                  
+    
+                                        </div>
+    
+                                        <div style={{display: 'flex', marginLeft: '10px'}}>
+                                            {op.optionImage !==""?(
+                                              <img src={op.optionImage} width="64%" height="auto" />
+                                            ): "" }
+                                          <Divider />
+                                        </div>
+                                      </div>
+                                      ))}  
+                                    </RadioGroup>
+    
                                   </div>
-                                  ))}  
-                                </RadioGroup>
-
-                              </div>
+                            </div>
+                          </div>  
+                        </Paper>  
                         </div>
-                      </div>  
-                    </Paper>  
-                    </div>
-                  ))}
-                  </Grid>   
-
-                  <Grid>
+                      ))}
+                      </Grid>   
+                      <Grid>
                     <br></br>
                     <div style={{display: 'flex'}}>
                       <Button variant="contained" color="primary" onClick={submitResponse}>
@@ -236,6 +243,20 @@ function UserView(props) {
                     <br></br>
 
                   </Grid>
+                   </div>
+                 ):
+                 (
+                   <div>
+                     <Typography variant="body1">Form submitted</Typography>
+                     <Typography variant="body2">Thanks for submiting form</Typography>
+                     
+
+                     <Button onClick={reloadForAnotherResponse}>Submit another response</Button>
+                   </div>
+                 )
+                }
+
+                  
 
                  
                 </Grid>  
@@ -244,6 +265,7 @@ function UserView(props) {
               </Grid>   
 
                {/* //TODO: Add a footer here */}
+         </div>
         </div>
     )
 }
